@@ -91,15 +91,16 @@ namespace SupplierOrderPdf.Wpf
         {
             try
             {
+                SetPreviewState(true, false);
                 await EnsureWebViewAsync();
                 if (PreviewBrowser != null && PreviewBrowser.CoreWebView2 != null)
                 {
                     ApplyThemeToPreview();
-                    if (PreviewErrorText != null) PreviewErrorText.Visibility = Visibility.Collapsed;
+                    SetPreviewState(false, false);
                 }
                 else
                 {
-                    if (PreviewErrorText != null) PreviewErrorText.Visibility = Visibility.Visible;
+                    SetPreviewState(false, true);
                 }
                 LoadAddresses();
                 LoadOrders();
@@ -412,11 +413,11 @@ ORDER BY o.[Data] DESC, o.ID DESC";
 
             // КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Обеспечиваем инициализацию WebView2 перед использованием
             await EnsureWebViewAsync();
-            
+
             // Проверяем, что WebView2 успешно инициализирован
             if (_isWebViewInitialized && PreviewBrowser.CoreWebView2 != null)
             {
-                PreviewBrowser.NavigateToString(html);
+                NavigatePreview(html);
             }
             else
             {
@@ -789,14 +790,13 @@ ORDER BY cu.[Number]";
         // поэтому здесь проверяем только наш флаг и сам контрол, без обращения к CoreWebView2.
         if (!_isWebViewInitialized || PreviewBrowser == null)
         {
-            if (PreviewErrorText != null)
-                PreviewErrorText.Visibility = Visibility.Visible;
+            SetPreviewState(false, true);
             return;
         }
 
         var (bg, fg, _, _) = ThemeCssVars();
         var html = $"<!doctype html><meta charset='utf-8'><body style='margin:24px;font-family:Segoe UI;background:{bg};color:{fg};opacity:.7'>Выберите заказ слева…</body>";
-        PreviewBrowser.NavigateToString(html);
+        NavigatePreview(html);
     }
 
     private (string Bg, string Fg, string Border, string ThBg) ThemeCssVars()
@@ -808,6 +808,38 @@ ORDER BY cu.[Number]";
         if (isDark)
             return ("#1f1f1f", "#e6e6e6", "#555", "#2a2a2a");
         return ("#ffffff", "#111", "#999", "#f2f2f2");
+    }
+
+    private void NavigatePreview(string html)
+    {
+        if (PreviewBrowser?.CoreWebView2 == null)
+        {
+            SetPreviewState(false, true);
+            return;
+        }
+
+        SetPreviewState(true, false);
+
+        void OnNavCompleted(object? s, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            SetPreviewState(false, false);
+            PreviewBrowser.CoreWebView2.NavigationCompleted -= OnNavCompleted;
+        }
+
+        PreviewBrowser.CoreWebView2.NavigationCompleted += OnNavCompleted;
+        PreviewBrowser.NavigateToString(html);
+    }
+
+    private void SetPreviewState(bool isLoading, bool hasError)
+    {
+        if (PreviewLoadingPlaceholder != null)
+            PreviewLoadingPlaceholder.Visibility = isLoading ? Visibility.Visible : Visibility.Collapsed;
+
+        if (PreviewErrorText != null)
+            PreviewErrorText.Visibility = hasError ? Visibility.Visible : Visibility.Collapsed;
+
+        if (PreviewBrowser != null)
+            PreviewBrowser.Visibility = hasError ? Visibility.Collapsed : Visibility.Visible;
     }
 
     private void RebuildPreview()
@@ -824,7 +856,7 @@ ORDER BY cu.[Number]";
 
             if (PreviewBrowser != null && PreviewBrowser.CoreWebView2 != null)
             {
-                PreviewBrowser.NavigateToString(html);
+                NavigatePreview(html);
             }
         
         
@@ -999,6 +1031,7 @@ ORDER BY cu.[Number]";
             MessageBox.Show(this, "WebView2 Runtime не найден.\n" + ex.Message,
                 "Ошибка WebView2", MessageBoxButton.OK, MessageBoxImage.Error);
             _isWebViewInitialized = false;
+            SetPreviewState(false, true);
         }
     }
 
