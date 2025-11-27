@@ -1,0 +1,923 @@
+<!-- 
+    Material Design 3 TextField Styles
+    ===================================
+    Этот файл содержит стили текстовых полей согласно Material Design 3 guidelines.
+    
+    Типы текстовых полей MD3:
+    - Filled TextField: Поле с заливкой фона
+    - Outlined TextField: Поле с обводкой
+    
+    Особенности MD3 TextField:
+    - Высота: 56dp
+    - Floating label (плавающая метка)
+    - Supporting text (вспомогательный текст)
+    - Leading/Trailing icons
+    - Error state
+    
+    Naming convention: MD3.TextField.{Type}
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:localConverters="clr-namespace:SupplierOrderPdf.Wpf.Converters">
+
+    <!-- ============================================== -->
+    <!-- CONVERTERS                                     -->
+    <!-- Конвертеры для работы с текстовыми полями      -->
+    <!-- ============================================== -->
+    
+    <!-- Конвертер для сравнения чисел (больше чем) -->
+    <localConverters:MathGreaterThanConverter x:Key="MathGreaterThanConverter"/>
+    
+    <!-- Конвертер для преобразования null в Visibility -->
+    <materialDesign:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter"/>
+
+    <!-- ============================================== -->
+    <!-- FILLED TEXTBOX                                 -->
+    <!-- Текстовое поле с заливкой фона                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.TextField.Filled" TargetType="TextBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,24,16,8"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="materialDesign:TextFieldAssist.HasClearButton" Value="False"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="materialDesign:HintAssist.FloatingScale" Value="0.75"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Main container -->
+                        <Border x:Name="RootBorder"
+                                Grid.Row="0"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4,4,0,0"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <!-- Bottom border indicator -->
+                                <Border x:Name="BottomBorder"
+                                        VerticalAlignment="Bottom"
+                                        Height="1"
+                                        Background="{TemplateBinding BorderBrush}"/>
+                                
+                                <!-- Focused bottom border (animated) -->
+                                <Border x:Name="FocusedBottomBorder"
+                                        VerticalAlignment="Bottom"
+                                        Height="2"
+                                        Background="{DynamicResource MD3.Brush.Primary}"
+                                        RenderTransformOrigin="0.5,0.5"
+                                        Opacity="0">
+                                    <Border.RenderTransform>
+                                        <ScaleTransform ScaleX="0"/>
+                                    </Border.RenderTransform>
+                                </Border>
+                                
+                                <!-- Content area -->
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <!-- Floating label -->
+                                    <TextBlock x:Name="FloatingLabel"
+                                               Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{DynamicResource MD3.FontSize.BodyLarge}"
+                                               VerticalAlignment="Center"
+                                               IsHitTestVisible="False"/>
+                                    
+                                    <!-- Text input -->
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                  Focusable="False"
+                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  VerticalScrollBarVisibility="Hidden"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Grid>
+                                
+                                <!-- State layer for hover -->
+                                <Border x:Name="StateLayer"
+                                        CornerRadius="4,4,0,0"
+                                        Background="Transparent"
+                                        IsHitTestVisible="False"/>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Supporting text -->
+                        <TextBlock x:Name="SupportingText"
+                                   Grid.Row="1"
+                                   Text="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}}"
+                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{DynamicResource MD3.FontSize.BodySmall}"
+                                   Margin="16,4,16,0"
+                                   Visibility="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullableToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusedBottomBorder" Property="Opacity" Value="1"/>
+                            <Setter TargetName="FocusedBottomBorder" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="FloatingLabel" Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="FloatingLabel" Property="FontSize" Value="{DynamicResource MD3.FontSize.BodySmall}"/>
+                            <Setter TargetName="FloatingLabel" Property="VerticalAlignment" Value="Top"/>
+                            <Setter TargetName="FloatingLabel" Property="Margin" Value="0,-16,0,0"/>
+                        </Trigger>
+                        
+                        <!-- Has text - float label -->
+                        <DataTrigger Binding="{Binding Text.Length, RelativeSource={RelativeSource Self}, FallbackValue=0, Converter={StaticResource MathGreaterThanConverter}, ConverterParameter=0}" Value="True">
+                            <Setter TargetName="FloatingLabel" Property="FontSize" Value="{DynamicResource MD3.FontSize.BodySmall}"/>
+                            <Setter TargetName="FloatingLabel" Property="VerticalAlignment" Value="Top"/>
+                            <Setter TargetName="FloatingLabel" Property="Margin" Value="0,-16,0,0"/>
+                        </DataTrigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="BottomBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                        
+                        <!-- Error state -->
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter TargetName="BottomBorder" Property="Background" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="FocusedBottomBorder" Property="Background" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="FloatingLabel" Property="Foreground" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="SupportingText" Property="Foreground" Value="{DynamicResource MD3.Brush.Error}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                            <Setter TargetName="BottomBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="BottomBorder" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED TEXTBOX                               -->
+    <!-- Текстовое поле с обводкой                      -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.TextField.Outlined" TargetType="TextBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,16,16,16"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Main container -->
+                        <Border x:Name="RootBorder"
+                                Grid.Row="0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{DynamicResource MD3.Shape.ExtraSmall}"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <!-- Content area -->
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <!-- Floating label -->
+                                    <TextBlock x:Name="FloatingLabel"
+                                               Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{DynamicResource MD3.FontSize.BodyLarge}"
+                                               VerticalAlignment="Center"
+                                               IsHitTestVisible="False"
+                                               RenderTransformOrigin="0,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform x:Name="LabelScale" ScaleX="1" ScaleY="1"/>
+                                                <TranslateTransform x:Name="LabelTranslate" X="0" Y="0"/>
+                                            </TransformGroup>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                    
+                                    <!-- Text input -->
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                  Focusable="False"
+                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  VerticalScrollBarVisibility="Hidden"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Label background (to cut through border) -->
+                        <Border x:Name="LabelBackground"
+                                Grid.Row="0"
+                                Background="{DynamicResource MD3.Brush.Surface}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="12,-8,0,0"
+                                Padding="4,0"
+                                Visibility="Collapsed">
+                            <TextBlock x:Name="FloatingLabelTop"
+                                       Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                       Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontSize="{DynamicResource MD3.FontSize.BodySmall}"/>
+                        </Border>
+                        
+                        <!-- Supporting text -->
+                        <TextBlock x:Name="SupportingText"
+                                   Grid.Row="1"
+                                   Text="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}}"
+                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{DynamicResource MD3.FontSize.BodySmall}"
+                                   Margin="16,4,16,0"
+                                   Visibility="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullableToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="RootBorder" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="FloatingLabel" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="LabelBackground" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="FloatingLabelTop" Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+                        </Trigger>
+                        
+                        <!-- Has text - show floating label on top -->
+                        <DataTrigger Binding="{Binding Text.Length, RelativeSource={RelativeSource Self}, FallbackValue=0, Converter={StaticResource MathGreaterThanConverter}, ConverterParameter=0}" Value="True">
+                            <Setter TargetName="FloatingLabel" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="LabelBackground" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                        
+                        <!-- Error state -->
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="FloatingLabel" Property="Foreground" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="FloatingLabelTop" Property="Foreground" Value="{DynamicResource MD3.Brush.Error}"/>
+                            <Setter TargetName="SupportingText" Property="Foreground" Value="{DynamicResource MD3.Brush.Error}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED TEXTBOX READ-ONLY                     -->
+    <!-- Текстовое поле только для чтения с обводкой    -->
+    <!-- Упрощённый шаблон без floating label           -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.TextField.Outlined.ReadOnly" TargetType="TextBox">
+        <!-- Фиксированная высота как у других полей -->
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,0,16,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <!-- Свойства только для чтения -->
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Cursor" Value="Arrow"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <!-- Простой шаблон без LabelBackground -->
+                    <Border x:Name="RootBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{DynamicResource MD3.Shape.ExtraSmall}"
+                            SnapsToDevicePixels="True">
+                        <!-- Text input -->
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FILLED PASSWORDBOX                             -->
+    <!-- Поле пароля с заливкой фона                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.PasswordField.Filled" TargetType="PasswordBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,24,16,8"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Main container -->
+                        <Border x:Name="RootBorder"
+                                Grid.Row="0"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="4,4,0,0"
+                                SnapsToDevicePixels="True">
+                            <Grid>
+                                <!-- Bottom border indicator -->
+                                <Border x:Name="BottomBorder"
+                                        VerticalAlignment="Bottom"
+                                        Height="1"
+                                        Background="{TemplateBinding BorderBrush}"/>
+                                
+                                <!-- Focused bottom border -->
+                                <Border x:Name="FocusedBottomBorder"
+                                        VerticalAlignment="Bottom"
+                                        Height="2"
+                                        Background="{DynamicResource MD3.Brush.Primary}"
+                                        Opacity="0"/>
+                                
+                                <!-- Content area -->
+                                <Grid Margin="{TemplateBinding Padding}">
+                                    <!-- Floating label -->
+                                    <TextBlock x:Name="FloatingLabel"
+                                               Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                               FontFamily="{TemplateBinding FontFamily}"
+                                               FontSize="{DynamicResource MD3.FontSize.BodySmall}"
+                                               VerticalAlignment="Top"
+                                               Margin="0,-16,0,0"
+                                               IsHitTestVisible="False"/>
+                                    
+                                    <!-- Password input -->
+                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                  Focusable="False"
+                                                  HorizontalScrollBarVisibility="Hidden"
+                                                  VerticalScrollBarVisibility="Hidden"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Grid>
+                                
+                                <!-- State layer for hover -->
+                                <Border x:Name="StateLayer"
+                                        CornerRadius="4,4,0,0"
+                                        Background="Transparent"
+                                        IsHitTestVisible="False"/>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- Supporting text -->
+                        <TextBlock x:Name="SupportingText"
+                                   Grid.Row="1"
+                                   Text="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}}"
+                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{DynamicResource MD3.FontSize.BodySmall}"
+                                   Margin="16,4,16,0"
+                                   Visibility="{Binding Path=(materialDesign:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullableToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusedBottomBorder" Property="Opacity" Value="1"/>
+                            <Setter TargetName="FloatingLabel" Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+                        </Trigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="BottomBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED PASSWORDBOX                           -->
+    <!-- Поле пароля с обводкой                         -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.PasswordField.Outlined" TargetType="PasswordBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,0,16,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Grid>
+                        <!-- Main border - аналогично ComboBox.Outlined -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{DynamicResource MD3.Shape.ExtraSmall}"
+                                SnapsToDevicePixels="True"/>
+                        
+                        <!-- Password input -->
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="False"
+                                      HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"
+                                      Margin="{TemplateBinding Padding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        
+                        <!-- Label background (показывается только если есть Hint) -->
+                        <Border x:Name="LabelBackground"
+                                Background="{DynamicResource MD3.Brush.Surface}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="12,-8,0,0"
+                                Padding="4,0"
+                                Visibility="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullableToVisibilityConverter}, FallbackValue=Collapsed}">
+                            <TextBlock x:Name="FloatingLabelTop"
+                                       Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                       Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       FontSize="{DynamicResource MD3.FontSize.BodySmall}"/>
+                        </Border>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="RootBorder" Property="BorderThickness" Value="2"/>
+                            <Setter TargetName="FloatingLabelTop" Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+                        </Trigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FILLED COMBOBOX                                -->
+    <!-- Выпадающий список с заливкой                   -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.ComboBox.Filled" TargetType="ComboBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,24,16,8"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED COMBOBOX                              -->
+    <!-- Выпадающий список с обводкой                   -->
+    <!-- ============================================== -->
+    
+    <!-- ComboBox Toggle Button Style -->
+    <Style x:Key="MD3.ComboBox.ToggleButton" TargetType="ToggleButton">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="ClickMode" Value="Press"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border x:Name="Border"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Dropdown arrow -->
+                            <Path x:Name="Arrow"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Arrow" Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" CenterX="4" CenterY="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Arrow" Property="Fill" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="Arrow" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="MD3.ComboBox.Outlined" TargetType="ComboBox">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
+        <Setter Property="MinWidth" Value="210"/>
+        <Setter Property="Padding" Value="16,0,8,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="materialDesign:HintAssist.Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="materialDesign:ComboBoxAssist.ShowSelectedItem" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <!-- Main border -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{DynamicResource MD3.Shape.ExtraSmall}"
+                                SnapsToDevicePixels="True"/>
+                        
+                        <!-- Toggle button (covers entire area) -->
+                        <ToggleButton x:Name="ToggleButton"
+                                      Style="{StaticResource MD3.ComboBox.ToggleButton}"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        
+                        <!-- Content presenter -->
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        
+                        <!-- Editable TextBox (hidden by default) -->
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Style="{x:Null}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Center"
+                                 Margin="{TemplateBinding Padding}"
+                                 Focusable="True"
+                                 Background="Transparent"
+                                 Foreground="{TemplateBinding Foreground}"
+                                 FontFamily="{TemplateBinding FontFamily}"
+                                 FontSize="{TemplateBinding FontSize}"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                        
+                        <!-- Dropdown popup -->
+                        <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Grid x:Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder"
+                                        Background="{DynamicResource MD3.Brush.SurfaceContainer}"
+                                        BorderBrush="{DynamicResource MD3.Brush.OutlineVariant}"
+                                        BorderThickness="1"
+                                        CornerRadius="{DynamicResource MD3.Shape.ExtraSmall}"
+                                        Margin="0,4,0,0">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="8"
+                                                          ShadowDepth="2"
+                                                          Opacity="0.2"
+                                                          Color="{DynamicResource MD3.Color.Shadow}"/>
+                                    </Border.Effect>
+                                </Border>
+                                <ScrollViewer Margin="0,4,0,0"
+                                              SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                        
+                        <!-- Focused/Open state -->
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="RootBorder" Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                        
+                        <!-- Editable mode -->
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- ComboBoxItem style for MD3 -->
+    <Style x:Key="MD3.ComboBoxItem" TargetType="ComboBoxItem">
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBoxItem">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- MULTILINE TEXTBOX (TEXTAREA)                   -->
+    <!-- Многострочное текстовое поле                   -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.TextField.Filled.Multiline" TargetType="TextBox" BasedOn="{StaticResource MD3.TextField.Filled}">
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="MinHeight" Value="112"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="Padding" Value="16,24,16,16"/>
+    </Style>
+    
+    <Style x:Key="MD3.TextField.Outlined.Multiline" TargetType="TextBox" BasedOn="{StaticResource MD3.TextField.Outlined}">
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="MinHeight" Value="112"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- SEARCH FIELD                                   -->
+    <!-- Поле поиска                                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.TextField.Search" TargetType="TextBox">
+        <Setter Property="Height" Value="48"/>
+        <Setter Property="MinWidth" Value="240"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHigh}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyLarge}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="RootBorder"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{DynamicResource MD3.Shape.Full}"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Leading icon (search) -->
+                            <materialDesign:PackIcon x:Name="SearchIcon"
+                                                     Grid.Column="0"
+                                                     Kind="Magnify"
+                                                     Width="24"
+                                                     Height="24"
+                                                     Margin="16,0,0,0"
+                                                     VerticalAlignment="Center"
+                                                     Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+                            
+                            <!-- Text input area -->
+                            <Grid Grid.Column="1" Margin="16,0">
+                                <!-- Placeholder -->
+                                <TextBlock x:Name="Placeholder"
+                                           Text="{Binding Path=(materialDesign:HintAssist.Hint), RelativeSource={RelativeSource TemplatedParent}}"
+                                           Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="{TemplateBinding FontSize}"
+                                           VerticalAlignment="Center"
+                                           IsHitTestVisible="False"
+                                           Visibility="Visible"/>
+                                
+                                <!-- Text input -->
+                                <ScrollViewer x:Name="PART_ContentHost"
+                                              Focusable="False"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Hidden"
+                                              VerticalAlignment="Center"/>
+                            </Grid>
+                            
+                            <!-- Trailing icon (clear) -->
+                            <Button x:Name="ClearButton"
+                                    Grid.Column="2"
+                                    Style="{StaticResource MD3.Button.Icon}"
+                                    Width="32"
+                                    Height="32"
+                                    Margin="0,0,8,0"
+                                    Visibility="Collapsed">
+                                <materialDesign:PackIcon Kind="Close"
+                                                         Width="20"
+                                                         Height="20"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hide placeholder when has text -->
+                        <DataTrigger Binding="{Binding Text.Length, RelativeSource={RelativeSource Self}, FallbackValue=0, Converter={StaticResource MathGreaterThanConverter}, ConverterParameter=0}" Value="True">
+                            <Setter TargetName="Placeholder" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="ClearButton" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

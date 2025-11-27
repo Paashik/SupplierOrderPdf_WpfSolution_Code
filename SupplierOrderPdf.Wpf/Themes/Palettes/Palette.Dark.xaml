@@ -1,0 +1,205 @@
+<!-- 
+    Material Design 3 Dark Theme Palette
+    =====================================
+    Этот файл определяет значения цветов для тёмной темы согласно Material Design 3.
+    
+    В тёмной теме MD3:
+    - Primary использует более светлые тона (tone 80 вместо 40)
+    - Container цвета используют более тёмные тона (tone 30 вместо 90)
+    - Surface цвета инвертированы для тёмного фона
+    
+    Цвета основаны на фиолетовой (Purple) палитре MD3:
+    - Primary: #D0BCFF (Purple 80)
+    - Secondary: #CCC2DC (Secondary 80)
+    - Tertiary: #EFB8C8 (Tertiary 80)
+    
+    Источник: Material Design 3 Color System
+    https://m3.material.io/styles/color/the-color-system/key-colors-tones
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================== -->
+    <!-- PRIMARY COLORS - Dark Theme                     -->
+    <!-- ============================================== -->
+    
+    <!-- Primary: Светлый фиолетовый для тёмной темы -->
+    <Color x:Key="MD3.Color.Primary">#D0BCFF</Color>
+    
+    <!-- OnPrimary: Тёмный текст/иконки на Primary -->
+    <Color x:Key="MD3.Color.OnPrimary">#381E72</Color>
+    
+    <!-- PrimaryContainer: Тёмный контейнер с Primary акцентом -->
+    <Color x:Key="MD3.Color.PrimaryContainer">#4F378B</Color>
+    
+    <!-- OnPrimaryContainer: Светлый текст на PrimaryContainer -->
+    <Color x:Key="MD3.Color.OnPrimaryContainer">#EADDFF</Color>
+
+    <!-- ============================================== -->
+    <!-- SECONDARY COLORS - Dark Theme                   -->
+    <!-- ============================================== -->
+    
+    <!-- Secondary: Светлый вторичный цвет -->
+    <Color x:Key="MD3.Color.Secondary">#CCC2DC</Color>
+    
+    <!-- OnSecondary: Тёмный текст/иконки на Secondary -->
+    <Color x:Key="MD3.Color.OnSecondary">#332D41</Color>
+    
+    <!-- SecondaryContainer: Тёмный контейнер с Secondary акцентом -->
+    <Color x:Key="MD3.Color.SecondaryContainer">#4A4458</Color>
+    
+    <!-- OnSecondaryContainer: Светлый текст на SecondaryContainer -->
+    <Color x:Key="MD3.Color.OnSecondaryContainer">#E8DEF8</Color>
+
+    <!-- ============================================== -->
+    <!-- TERTIARY COLORS - Dark Theme                    -->
+    <!-- ============================================== -->
+    
+    <!-- Tertiary: Светлый третичный цвет -->
+    <Color x:Key="MD3.Color.Tertiary">#EFB8C8</Color>
+    
+    <!-- OnTertiary: Тёмный текст/иконки на Tertiary -->
+    <Color x:Key="MD3.Color.OnTertiary">#492532</Color>
+    
+    <!-- TertiaryContainer: Тёмный контейнер с Tertiary акцентом -->
+    <Color x:Key="MD3.Color.TertiaryContainer">#633B48</Color>
+    
+    <!-- OnTertiaryContainer: Светлый текст на TertiaryContainer -->
+    <Color x:Key="MD3.Color.OnTertiaryContainer">#FFD8E4</Color>
+
+    <!-- ============================================== -->
+    <!-- ERROR COLORS - Dark Theme                       -->
+    <!-- ============================================== -->
+    
+    <!-- Error: Светлый красный для ошибок -->
+    <Color x:Key="MD3.Color.Error">#F2B8B5</Color>
+    
+    <!-- OnError: Тёмный текст/иконки на Error -->
+    <Color x:Key="MD3.Color.OnError">#601410</Color>
+    
+    <!-- ErrorContainer: Тёмный контейнер для ошибок -->
+    <Color x:Key="MD3.Color.ErrorContainer">#8C1D18</Color>
+    
+    <!-- OnErrorContainer: Светлый текст на ErrorContainer -->
+    <Color x:Key="MD3.Color.OnErrorContainer">#F9DEDC</Color>
+
+    <!-- ============================================== -->
+    <!-- SURFACE COLORS - Dark Theme                     -->
+    <!-- ============================================== -->
+    
+    <!-- Surface: Тёмная основная поверхность -->
+    <Color x:Key="MD3.Color.Surface">#141218</Color>
+    
+    <!-- OnSurface: Светлый текст на Surface -->
+    <Color x:Key="MD3.Color.OnSurface">#E6E0E9</Color>
+    
+    <!-- SurfaceVariant: Вариант тёмной поверхности -->
+    <Color x:Key="MD3.Color.SurfaceVariant">#49454F</Color>
+    
+    <!-- OnSurfaceVariant: Текст на SurfaceVariant -->
+    <Color x:Key="MD3.Color.OnSurfaceVariant">#CAC4D0</Color>
+
+    <!-- ============================================== -->
+    <!-- SURFACE CONTAINER COLORS - Dark Theme           -->
+    <!-- Используются для создания визуальной иерархии   -->
+    <!-- ============================================== -->
+    
+    <!-- SurfaceContainerLowest: Самый тёмный -->
+    <Color x:Key="MD3.Color.SurfaceContainerLowest">#0F0D13</Color>
+    
+    <!-- SurfaceContainerLow: Очень тёмный -->
+    <Color x:Key="MD3.Color.SurfaceContainerLow">#1D1B20</Color>
+    
+    <!-- SurfaceContainer: Стандартный тёмный уровень -->
+    <Color x:Key="MD3.Color.SurfaceContainer">#211F26</Color>
+    
+    <!-- SurfaceContainerHigh: Более светлый -->
+    <Color x:Key="MD3.Color.SurfaceContainerHigh">#2B2930</Color>
+    
+    <!-- SurfaceContainerHighest: Самый светлый из тёмных -->
+    <Color x:Key="MD3.Color.SurfaceContainerHighest">#36343B</Color>
+
+    <!-- ============================================== -->
+    <!-- OUTLINE COLORS - Dark Theme                     -->
+    <!-- ============================================== -->
+    
+    <!-- Outline: Цвет границ (средний серый) -->
+    <Color x:Key="MD3.Color.Outline">#938F99</Color>
+    
+    <!-- OutlineVariant: Менее контрастные границы -->
+    <Color x:Key="MD3.Color.OutlineVariant">#49454F</Color>
+
+    <!-- ============================================== -->
+    <!-- BACKGROUND COLORS - Dark Theme                  -->
+    <!-- ============================================== -->
+    
+    <!-- Background: Тёмный фон приложения -->
+    <Color x:Key="MD3.Color.Background">#141218</Color>
+    
+    <!-- OnBackground: Светлый текст на фоне -->
+    <Color x:Key="MD3.Color.OnBackground">#E6E0E9</Color>
+
+    <!-- ============================================== -->
+    <!-- INVERSE COLORS - Dark Theme                     -->
+    <!-- Используются для snackbar, tooltips и т.д.      -->
+    <!-- ============================================== -->
+    
+    <!-- InverseSurface: Светлая поверхность для контраста -->
+    <Color x:Key="MD3.Color.InverseSurface">#E6E0E9</Color>
+    
+    <!-- InverseOnSurface: Тёмный текст на InverseSurface -->
+    <Color x:Key="MD3.Color.InverseOnSurface">#322F35</Color>
+    
+    <!-- InversePrimary: Primary цвет для светлого фона -->
+    <Color x:Key="MD3.Color.InversePrimary">#6750A4</Color>
+
+    <!-- ============================================== -->
+    <!-- UTILITY COLORS - Dark Theme                     -->
+    <!-- ============================================== -->
+    
+    <!-- Scrim: Затемнение для модальных окон -->
+    <Color x:Key="MD3.Color.Scrim">#000000</Color>
+    
+    <!-- Shadow: Цвет теней -->
+    <Color x:Key="MD3.Color.Shadow">#000000</Color>
+    
+    <!-- SurfaceTint: Оттенок для elevation (совпадает с Primary) -->
+    <Color x:Key="MD3.Color.SurfaceTint">#D0BCFF</Color>
+
+    <!-- ============================================== -->
+    <!-- ADDITIONAL SEMANTIC COLORS - Dark Theme         -->
+    <!-- Дополнительные цвета для специфических случаев  -->
+    <!-- ============================================== -->
+    
+    <!-- Success: Светло-зелёный для успешных операций -->
+    <Color x:Key="MD3.Color.Success">#9DD67D</Color>
+    <Color x:Key="MD3.Color.OnSuccess">#0D3900</Color>
+    <Color x:Key="MD3.Color.SuccessContainer">#205107</Color>
+    <Color x:Key="MD3.Color.OnSuccessContainer">#B8F397</Color>
+    
+    <!-- Warning: Светло-оранжевый для предупреждений -->
+    <Color x:Key="MD3.Color.Warning">#F5BF48</Color>
+    <Color x:Key="MD3.Color.OnWarning">#3F2E00</Color>
+    <Color x:Key="MD3.Color.WarningContainer">#5C4300</Color>
+    <Color x:Key="MD3.Color.OnWarningContainer">#FFDEA6</Color>
+    
+    <!-- Info: Светло-синий для информационных сообщений -->
+    <Color x:Key="MD3.Color.Info">#9ECAFF</Color>
+    <Color x:Key="MD3.Color.OnInfo">#003258</Color>
+    <Color x:Key="MD3.Color.InfoContainer">#00497D</Color>
+    <Color x:Key="MD3.Color.OnInfoContainer">#D1E4FF</Color>
+
+    <!-- ============================================== -->
+    <!-- SURFACE TINT OPACITY LEVELS - Dark Theme        -->
+    <!-- Прозрачность для elevation overlay              -->
+    <!-- ============================================== -->
+    
+    <!-- Opacity values для разных уровней elevation -->
+    <!-- Level 1: 5%, Level 2: 8%, Level 3: 11%, Level 4: 12%, Level 5: 14% -->
+    <Color x:Key="MD3.Color.SurfaceTint.Level1">#0DD0BCFF</Color>
+    <Color x:Key="MD3.Color.SurfaceTint.Level2">#14D0BCFF</Color>
+    <Color x:Key="MD3.Color.SurfaceTint.Level3">#1CD0BCFF</Color>
+    <Color x:Key="MD3.Color.SurfaceTint.Level4">#1FD0BCFF</Color>
+    <Color x:Key="MD3.Color.SurfaceTint.Level5">#24D0BCFF</Color>
+
+</ResourceDictionary>

@@ -1,0 +1,1083 @@
+<!-- 
+    Material Design 3 Button Styles
+    ================================
+    Этот файл содержит стили кнопок согласно Material Design 3 guidelines.
+    
+    Типы кнопок MD3:
+    - Filled Button (Primary): Основная кнопка для главных действий
+    - Outlined Button: Кнопка с обводкой для вторичных действий
+    - Text Button: Текстовая кнопка для третичных действий
+    - Tonal Button: Кнопка с приглушённым фоном
+    - Elevated Button: Кнопка с тенью
+    - FAB: Floating Action Button
+    
+    Naming convention: MD3.Button.{Type}
+    
+    Все стили используют DynamicResource для поддержки смены темы
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!-- ============================================== -->
+    <!-- STATE LAYER BRUSHES                            -->
+    <!-- Кисти для state layers (hover, pressed, etc.) -->
+    <!-- ============================================== -->
+    
+    <!-- State layer opacity values согласно MD3 -->
+    <!-- Hover: 8%, Pressed: 12%, Focused: 12%, Dragged: 16% -->
+    
+    <SolidColorBrush x:Key="MD3.StateLayer.OnPrimary.Hover" Color="{DynamicResource MD3.Color.OnPrimary}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.OnPrimary.Pressed" Color="{DynamicResource MD3.Color.OnPrimary}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.OnPrimary.Focused" Color="{DynamicResource MD3.Color.OnPrimary}" Opacity="0.12"/>
+    
+    <SolidColorBrush x:Key="MD3.StateLayer.Primary.Hover" Color="{DynamicResource MD3.Color.Primary}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.Primary.Pressed" Color="{DynamicResource MD3.Color.Primary}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.Primary.Focused" Color="{DynamicResource MD3.Color.Primary}" Opacity="0.12"/>
+    
+    <SolidColorBrush x:Key="MD3.StateLayer.OnSecondaryContainer.Hover" Color="{DynamicResource MD3.Color.OnSecondaryContainer}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.OnSecondaryContainer.Pressed" Color="{DynamicResource MD3.Color.OnSecondaryContainer}" Opacity="0.12"/>
+    
+    <SolidColorBrush x:Key="MD3.StateLayer.OnSurface.Hover" Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="MD3.StateLayer.OnSurface.Pressed" Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.12"/>
+
+    <!-- ============================================== -->
+    <!-- FILLED BUTTON (PRIMARY)                        -->
+    <!-- Основная кнопка для главных действий           -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Filled" TargetType="Button">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.Button.Height}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource MD3.Size.Button.MinWidth}"/>
+        <Setter Property="Padding" Value="24,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnPrimary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnPrimary}"/>
+        <Setter Property="materialDesign:RippleAssist.RippleOnTop" Value="True"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnPrimary.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnPrimary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED BUTTON                                -->
+    <!-- Кнопка с обводкой для вторичных действий       -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Outlined" TargetType="Button">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.Button.Height}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource MD3.Size.Button.MinWidth}"/>
+        <Setter Property="Padding" Value="24,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- TEXT BUTTON                                    -->
+    <!-- Текстовая кнопка для третичных действий        -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Text" TargetType="Button">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.Button.Height}"/>
+        <Setter Property="MinWidth" Value="48"/>
+        <Setter Property="Padding" Value="12,0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- TONAL BUTTON (SECONDARY)                       -->
+    <!-- Кнопка с приглушённым фоном                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Tonal" TargetType="Button">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.Button.Height}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource MD3.Size.Button.MinWidth}"/>
+        <Setter Property="Padding" Value="24,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.OnSecondaryContainer}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSecondaryContainer.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSecondaryContainer.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- ELEVATED BUTTON                                -->
+    <!-- Кнопка с тенью                                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Elevated" TargetType="Button">
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.Button.Height}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource MD3.Size.Button.MinWidth}"/>
+        <Setter Property="Padding" Value="24,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="materialDesign:ElevationAssist.Elevation" Value="Dp1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Shadow layer -->
+                        <Border x:Name="ShadowBorder"
+                                CornerRadius="20"
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="8"
+                                                  ShadowDepth="1"
+                                                  Direction="270"
+                                                  Opacity="0.2"
+                                                  Color="{DynamicResource MD3.Color.Shadow}"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="12"
+                                                      ShadowDepth="2"
+                                                      Direction="270"
+                                                      Opacity="0.25"
+                                                      Color="{DynamicResource MD3.Color.Shadow}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect" Value="{x:Null}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FAB - FLOATING ACTION BUTTON                   -->
+    <!-- Стандартный размер: 56x56dp                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.FAB" TargetType="Button">
+        <Setter Property="Width" Value="{DynamicResource MD3.Size.FAB.Standard}"/>
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.FAB.Standard}"/>
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.PrimaryContainer}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnPrimaryContainer}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnPrimaryContainer}"/>
+        <Setter Property="materialDesign:ElevationAssist.Elevation" Value="Dp3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Shadow layer -->
+                        <Border x:Name="ShadowBorder"
+                                CornerRadius="16"
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12"
+                                                  ShadowDepth="3"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  Color="{DynamicResource MD3.Color.Shadow}"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <!-- Main FAB container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="16"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="16"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="16"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="16"
+                                                      ShadowDepth="4"
+                                                      Direction="270"
+                                                      Opacity="0.3"
+                                                      Color="{DynamicResource MD3.Color.Shadow}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect" Value="{x:Null}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FAB SMALL                                      -->
+    <!-- Маленький FAB: 40x40dp                         -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.FAB.Small" TargetType="Button" BasedOn="{StaticResource MD3.Button.FAB}">
+        <Setter Property="Width" Value="{DynamicResource MD3.Size.FAB.Small}"/>
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.FAB.Small}"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Shadow layer -->
+                        <Border x:Name="ShadowBorder"
+                                CornerRadius="12"
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12"
+                                                  ShadowDepth="3"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  Color="{DynamicResource MD3.Color.Shadow}"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <!-- Main FAB container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="12"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="12"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="16"
+                                                      ShadowDepth="4"
+                                                      Direction="270"
+                                                      Opacity="0.3"
+                                                      Color="{DynamicResource MD3.Color.Shadow}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect" Value="{x:Null}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FAB LARGE                                      -->
+    <!-- Большой FAB: 96x96dp                           -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.FAB.Large" TargetType="Button" BasedOn="{StaticResource MD3.Button.FAB}">
+        <Setter Property="Width" Value="{DynamicResource MD3.Size.FAB.Large}"/>
+        <Setter Property="Height" Value="{DynamicResource MD3.Size.FAB.Large}"/>
+        <Setter Property="Padding" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Shadow layer -->
+                        <Border x:Name="ShadowBorder"
+                                CornerRadius="28"
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12"
+                                                  ShadowDepth="3"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  Color="{DynamicResource MD3.Color.Shadow}"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <!-- Main FAB container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="28"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="28"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="28"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="16"
+                                                      ShadowDepth="4"
+                                                      Direction="270"
+                                                      Opacity="0.3"
+                                                      Color="{DynamicResource MD3.Color.Shadow}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect" Value="{x:Null}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- EXTENDED FAB                                   -->
+    <!-- FAB с текстом и иконкой                        -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.FAB.Extended" TargetType="Button">
+        <Setter Property="Height" Value="56"/>
+        <Setter Property="MinWidth" Value="80"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.PrimaryContainer}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnPrimaryContainer}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.LabelLarge}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnPrimaryContainer}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Shadow layer -->
+                        <Border x:Name="ShadowBorder"
+                                CornerRadius="16"
+                                Background="{TemplateBinding Background}">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="12"
+                                                  ShadowDepth="3"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  Color="{DynamicResource MD3.Color.Shadow}"/>
+                            </Border.Effect>
+                        </Border>
+                        
+                        <!-- Main FAB container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="16"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="16"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="16"
+                                BorderBrush="{DynamicResource MD3.Brush.Primary}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Hover}"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="16"
+                                                      ShadowDepth="4"
+                                                      Direction="270"
+                                                      Opacity="0.3"
+                                                      Color="{DynamicResource MD3.Color.Shadow}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.Primary.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter TargetName="ShadowBorder" Property="Effect" Value="{x:Null}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- ICON BUTTON                                    -->
+    <!-- Кнопка только с иконкой                        -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Icon" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False"
+                                                   ClipToBounds="True">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSurface.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSurface.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FILLED ICON BUTTON                             -->
+    <!-- Кнопка с иконкой и заливкой                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Icon.Filled" TargetType="Button" BasedOn="{StaticResource MD3.Button.Icon}">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnPrimary}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnPrimary}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- TONAL ICON BUTTON                              -->
+    <!-- Кнопка с иконкой и тональной заливкой          -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Icon.Tonal" TargetType="Button" BasedOn="{StaticResource MD3.Button.Icon}">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- OUTLINED ICON BUTTON                           -->
+    <!-- Кнопка с иконкой и обводкой                    -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Button.Icon.Outlined" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Main button container -->
+                        <Border x:Name="RootBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="20"
+                                SnapsToDevicePixels="True">
+                            <materialDesign:Ripple Padding="{TemplateBinding Padding}"
+                                                   HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                   VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                   Feedback="{TemplateBinding Foreground}"
+                                                   Focusable="False"
+                                                   ClipToBounds="True">
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  RecognizesAccessKey="True"/>
+                            </materialDesign:Ripple>
+                        </Border>
+                        
+                        <!-- State layer overlay -->
+                        <Border x:Name="StateLayer"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Focus indicator -->
+                        <Border x:Name="FocusIndicator"
+                                CornerRadius="20"
+                                BorderBrush="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                BorderThickness="3"
+                                Opacity="0"
+                                Margin="-3"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSurface.Hover}"/>
+                        </Trigger>
+                        
+                        <!-- Pressed state -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background" Value="{StaticResource MD3.StateLayer.OnSurface.Pressed}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="FocusIndicator" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="RootBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="RootBorder" Property="Opacity" Value="0.12"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+                            <Setter TargetName="ContentPresenter" Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

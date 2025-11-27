@@ -1,0 +1,163 @@
+<!-- 
+    Material Design 3 Shape Tokens
+    ==============================
+    Этот файл определяет токены форм (corner radius) согласно Material Design 3 guidelines.
+    
+    MD3 Shape Scale:
+    - None: 0dp - Без скругления
+    - ExtraSmall: 4dp - Очень маленькое скругление (чипы, маленькие кнопки)
+    - Small: 8dp - Маленькое скругление (карточки, текстовые поля)
+    - Medium: 12dp - Среднее скругление (диалоги, меню)
+    - Large: 16dp - Большое скругление (большие карточки, листы)
+    - ExtraLarge: 28dp - Очень большое скругление (FAB, модальные окна)
+    - Full: 9999dp - Полное скругление (круглые кнопки, аватары)
+    
+    Naming convention: MD3.Shape.{Size}
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================== -->
+    <!-- CORNER RADIUS VALUES                            -->
+    <!-- ============================================== -->
+    
+    <!-- None: 0dp - Без скругления -->
+    <CornerRadius x:Key="MD3.Shape.None">0</CornerRadius>
+    <system:Double x:Key="MD3.Shape.None.Value">0</system:Double>
+    
+    <!-- ExtraSmall: 4dp - Чипы, маленькие кнопки, badges -->
+    <CornerRadius x:Key="MD3.Shape.ExtraSmall">4</CornerRadius>
+    <system:Double x:Key="MD3.Shape.ExtraSmall.Value">4</system:Double>
+    
+    <!-- ExtraSmall Top: 4dp только сверху -->
+    <CornerRadius x:Key="MD3.Shape.ExtraSmall.Top">4,4,0,0</CornerRadius>
+    
+    <!-- Small: 8dp - Карточки, текстовые поля, меню -->
+    <CornerRadius x:Key="MD3.Shape.Small">8</CornerRadius>
+    <system:Double x:Key="MD3.Shape.Small.Value">8</system:Double>
+    
+    <!-- Small Top: 8dp только сверху -->
+    <CornerRadius x:Key="MD3.Shape.Small.Top">8,8,0,0</CornerRadius>
+    
+    <!-- Medium: 12dp - Диалоги, выпадающие меню -->
+    <CornerRadius x:Key="MD3.Shape.Medium">12</CornerRadius>
+    <system:Double x:Key="MD3.Shape.Medium.Value">12</system:Double>
+    
+    <!-- Medium Top: 12dp только сверху -->
+    <CornerRadius x:Key="MD3.Shape.Medium.Top">12,12,0,0</CornerRadius>
+    
+    <!-- Large: 16dp - Большие карточки, navigation drawer -->
+    <CornerRadius x:Key="MD3.Shape.Large">16</CornerRadius>
+    <system:Double x:Key="MD3.Shape.Large.Value">16</system:Double>
+    
+    <!-- Large Top: 16dp только сверху -->
+    <CornerRadius x:Key="MD3.Shape.Large.Top">16,16,0,0</CornerRadius>
+    
+    <!-- Large End: 16dp только справа (для LTR) -->
+    <CornerRadius x:Key="MD3.Shape.Large.End">0,16,16,0</CornerRadius>
+    
+    <!-- ExtraLarge: 28dp - FAB, модальные bottom sheets -->
+    <CornerRadius x:Key="MD3.Shape.ExtraLarge">28</CornerRadius>
+    <system:Double x:Key="MD3.Shape.ExtraLarge.Value">28</system:Double>
+    
+    <!-- ExtraLarge Top: 28dp только сверху -->
+    <CornerRadius x:Key="MD3.Shape.ExtraLarge.Top">28,28,0,0</CornerRadius>
+    
+    <!-- Full: Полное скругление для круглых элементов -->
+    <CornerRadius x:Key="MD3.Shape.Full">9999</CornerRadius>
+    <system:Double x:Key="MD3.Shape.Full.Value">9999</system:Double>
+
+    <!-- ============================================== -->
+    <!-- SPACING / PADDING VALUES                        -->
+    <!-- Дополнительные токены для отступов              -->
+    <!-- ============================================== -->
+    
+    <!-- Spacing scale согласно MD3 (кратно 4dp) -->
+    <Thickness x:Key="MD3.Spacing.None">0</Thickness>
+    <Thickness x:Key="MD3.Spacing.ExtraSmall">4</Thickness>
+    <Thickness x:Key="MD3.Spacing.Small">8</Thickness>
+    <Thickness x:Key="MD3.Spacing.Medium">12</Thickness>
+    <Thickness x:Key="MD3.Spacing.Large">16</Thickness>
+    <Thickness x:Key="MD3.Spacing.ExtraLarge">24</Thickness>
+    <Thickness x:Key="MD3.Spacing.Huge">32</Thickness>
+    
+    <!-- Spacing values как Double для использования в других местах -->
+    <system:Double x:Key="MD3.Spacing.None.Value">0</system:Double>
+    <system:Double x:Key="MD3.Spacing.ExtraSmall.Value">4</system:Double>
+    <system:Double x:Key="MD3.Spacing.Small.Value">8</system:Double>
+    <system:Double x:Key="MD3.Spacing.Medium.Value">12</system:Double>
+    <system:Double x:Key="MD3.Spacing.Large.Value">16</system:Double>
+    <system:Double x:Key="MD3.Spacing.ExtraLarge.Value">24</system:Double>
+    <system:Double x:Key="MD3.Spacing.Huge.Value">32</system:Double>
+
+    <!-- ============================================== -->
+    <!-- COMPONENT-SPECIFIC PADDING                      -->
+    <!-- Отступы для конкретных компонентов              -->
+    <!-- ============================================== -->
+    
+    <!-- Button padding -->
+    <Thickness x:Key="MD3.Padding.Button">24,0</Thickness>
+    <Thickness x:Key="MD3.Padding.Button.Icon">16,0,24,0</Thickness>
+    
+    <!-- Card padding -->
+    <Thickness x:Key="MD3.Padding.Card">16</Thickness>
+    <Thickness x:Key="MD3.Padding.Card.Content">16,12</Thickness>
+    
+    <!-- Dialog padding -->
+    <Thickness x:Key="MD3.Padding.Dialog">24</Thickness>
+    <Thickness x:Key="MD3.Padding.Dialog.Content">24,16</Thickness>
+    
+    <!-- TextField padding -->
+    <Thickness x:Key="MD3.Padding.TextField">16,8</Thickness>
+    
+    <!-- List item padding -->
+    <Thickness x:Key="MD3.Padding.ListItem">16,8</Thickness>
+    <Thickness x:Key="MD3.Padding.ListItem.Dense">16,4</Thickness>
+
+    <!-- ============================================== -->
+    <!-- ELEVATION / SHADOW                              -->
+    <!-- Значения для теней (elevation levels)           -->
+    <!-- ============================================== -->
+    
+    <!-- MD3 использует 5 уровней elevation: 0, 1, 2, 3, 5 -->
+    <system:Double x:Key="MD3.Elevation.Level0">0</system:Double>
+    <system:Double x:Key="MD3.Elevation.Level1">1</system:Double>
+    <system:Double x:Key="MD3.Elevation.Level2">3</system:Double>
+    <system:Double x:Key="MD3.Elevation.Level3">6</system:Double>
+    <system:Double x:Key="MD3.Elevation.Level4">8</system:Double>
+    <system:Double x:Key="MD3.Elevation.Level5">12</system:Double>
+
+    <!-- ============================================== -->
+    <!-- COMPONENT SIZES                                 -->
+    <!-- Стандартные размеры компонентов                 -->
+    <!-- ============================================== -->
+    
+    <!-- Button heights -->
+    <system:Double x:Key="MD3.Size.Button.Height">48</system:Double>
+    <system:Double x:Key="MD3.Size.Button.MinWidth">64</system:Double>
+    
+    <!-- FAB sizes -->
+    <system:Double x:Key="MD3.Size.FAB.Small">40</system:Double>
+    <system:Double x:Key="MD3.Size.FAB.Standard">56</system:Double>
+    <system:Double x:Key="MD3.Size.FAB.Large">96</system:Double>
+    
+    <!-- Icon sizes -->
+    <system:Double x:Key="MD3.Size.Icon.Small">20</system:Double>
+    <system:Double x:Key="MD3.Size.Icon.Medium">24</system:Double>
+    <system:Double x:Key="MD3.Size.Icon.Large">40</system:Double>
+    
+    <!-- TextField height -->
+    <system:Double x:Key="MD3.Size.TextField.Height">56</system:Double>
+    
+    <!-- AppBar height -->
+    <system:Double x:Key="MD3.Size.AppBar.Height">64</system:Double>
+    <system:Double x:Key="MD3.Size.AppBar.Height.Small">48</system:Double>
+    
+    <!-- Navigation Rail width -->
+    <system:Double x:Key="MD3.Size.NavigationRail.Width">80</system:Double>
+    
+    <!-- Navigation Drawer width -->
+    <system:Double x:Key="MD3.Size.NavigationDrawer.Width">360</system:Double>
+
+</ResourceDictionary>

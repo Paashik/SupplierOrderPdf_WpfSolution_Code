@@ -1,0 +1,213 @@
+<!-- 
+    Material Design 3 Controls - Main Entry Point
+    ==============================================
+    Этот файл является главной точкой входа для всех стилей компонентов MD3.
+    Он мержит все файлы из папки Controls/ и сохраняет обратную совместимость
+    с существующими стилями.
+    
+    Структура:
+    - Controls/Buttons.xaml - Стили кнопок (Filled, Outlined, Text, Tonal, Elevated, FAB)
+    - Controls/TextFields.xaml - Стили текстовых полей (Filled, Outlined)
+    - Controls/Cards.xaml - Стили карточек (Elevated, Filled, Outlined)
+    - Controls/Navigation.xaml - Стили навигации (Rail, Tabs, Bar, Drawer)
+    - Controls/DataGrid.xaml - Стили таблиц
+    - Controls/Dialogs.xaml - Стили диалогов и уведомлений
+    
+    Naming convention для MD3 стилей:
+    - MD3.Button.{Type} - Кнопки
+    - MD3.TextField.{Type} - Текстовые поля
+    - MD3.Card.{Type} - Карточки
+    - MD3.Navigation.{Component} - Навигация
+    - MD3.DataGrid - Таблицы
+    - MD3.Dialog - Диалоги
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================== -->
+    <!-- MERGED DICTIONARIES - MD3 COMPONENT STYLES     -->
+    <!-- ============================================== -->
+    
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MD3 Button Styles -->
+        <ResourceDictionary Source="Controls/Buttons.xaml"/>
+        
+        <!-- MD3 TextField Styles -->
+        <ResourceDictionary Source="Controls/TextFields.xaml"/>
+        
+        <!-- MD3 Card Styles -->
+        <ResourceDictionary Source="Controls/Cards.xaml"/>
+        
+        <!-- MD3 Navigation Styles -->
+        <ResourceDictionary Source="Controls/Navigation.xaml"/>
+        
+        <!-- MD3 DataGrid Styles -->
+        <ResourceDictionary Source="Controls/DataGrid.xaml"/>
+        
+        <!-- MD3 Dialog Styles -->
+        <ResourceDictionary Source="Controls/Dialogs.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- ============================================== -->
+    <!-- LEGACY STYLES - BACKWARD COMPATIBILITY         -->
+    <!-- Существующие стили для обратной совместимости  -->
+    <!-- Постепенно мигрируйте на MD3.* стили           -->
+    <!-- ============================================== -->
+
+    <!-- Базовый стиль для всех окон -->
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Background}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnBackground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+    <!-- Базовый стиль текста -->
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LEGACY BUTTON STYLES                           -->
+    <!-- Используйте MD3.Button.* для новых компонентов -->
+    <!-- ============================================== -->
+
+
+
+    <!-- ============================================== -->
+    <!-- LEGACY INPUT STYLES                            -->
+    <!-- Используйте MD3.TextField.* для новых полей    -->
+    <!-- ============================================== -->
+
+
+    <!-- ============================================== -->
+    <!-- LEGACY GROUPBOX / SURFACE STYLES               -->
+    <!-- Используйте MD3.Card.* или MD3.GroupBox.*      -->
+    <!-- ============================================== -->
+
+    <!-- GroupBox как "карточка" -->
+    <Style TargetType="GroupBox">
+        <Setter Property="Margin" Value="0,0,0,12"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GroupBox">
+                    <Border Background="{DynamicResource MD3.Brush.SurfaceContainer}"
+                            BorderBrush="{DynamicResource MD3.Brush.OutlineVariant}"
+                            BorderThickness="1"
+                            CornerRadius="{DynamicResource MD3.Shape.Medium}">
+                        <Grid Margin="16">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Text="{TemplateBinding Header}"
+                                       Style="{DynamicResource MD3.Typography.TitleMedium}"
+                                       Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                       Margin="0,0,0,12"/>
+
+                            <ContentPresenter Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LEGACY TAB STYLES                              -->
+    <!-- Используйте MD3.TabControl и MD3.TabItem       -->
+    <!-- ============================================== -->
+
+    <Style TargetType="TabControl">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="TabItem">
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.Primary}"/>
+                <Setter Property="Background" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LEGACY SCROLLVIEWER STYLES                     -->
+    <!-- ============================================== -->
+
+    <Style TargetType="ScrollViewer">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LEGACY DATAGRID STYLES                         -->
+    <!-- Используйте MD3.DataGrid для новых таблиц      -->
+    <!-- ============================================== -->
+
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="RowBackground" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource MD3.Brush.SurfaceContainerLowest}"/>
+        <Setter Property="RowHeight" Value="52"/>
+        <Setter Property="ColumnHeaderHeight" Value="56"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+    </Style>
+
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridCell">
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,198 @@
+<!-- 
+    Material Design 3 Color Tokens
+    ==============================
+    Этот файл определяет цветовые токены согласно Material Design 3 guidelines.
+    Все цвета определены как Color ресурсы, а кисти (Brush) ссылаются на них через DynamicResource.
+    
+    Naming convention: MD3.Color.{TokenName} для Color, MD3.Brush.{TokenName} для SolidColorBrush
+    
+    Значения цветов устанавливаются в файлах палитр (Palette.Light.xaml, Palette.Dark.xaml)
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- ============================================== -->
+    <!-- PRIMARY COLORS                                  -->
+    <!-- ============================================== -->
+    
+    <!-- Primary: Основной цвет бренда, используется для ключевых компонентов -->
+    <Color x:Key="MD3.Color.Primary">#6750A4</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Primary" Color="{DynamicResource MD3.Color.Primary}"/>
+    
+    <!-- OnPrimary: Цвет контента поверх Primary -->
+    <Color x:Key="MD3.Color.OnPrimary">#FFFFFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnPrimary" Color="{DynamicResource MD3.Color.OnPrimary}"/>
+    
+    <!-- PrimaryContainer: Контейнер с Primary акцентом -->
+    <Color x:Key="MD3.Color.PrimaryContainer">#EADDFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.PrimaryContainer" Color="{DynamicResource MD3.Color.PrimaryContainer}"/>
+    
+    <!-- OnPrimaryContainer: Цвет контента поверх PrimaryContainer -->
+    <Color x:Key="MD3.Color.OnPrimaryContainer">#21005D</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnPrimaryContainer" Color="{DynamicResource MD3.Color.OnPrimaryContainer}"/>
+
+    <!-- ============================================== -->
+    <!-- SECONDARY COLORS                                -->
+    <!-- ============================================== -->
+    
+    <!-- Secondary: Вторичный цвет для менее заметных компонентов -->
+    <Color x:Key="MD3.Color.Secondary">#625B71</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Secondary" Color="{DynamicResource MD3.Color.Secondary}"/>
+    
+    <!-- OnSecondary: Цвет контента поверх Secondary -->
+    <Color x:Key="MD3.Color.OnSecondary">#FFFFFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnSecondary" Color="{DynamicResource MD3.Color.OnSecondary}"/>
+    
+    <!-- SecondaryContainer: Контейнер с Secondary акцентом -->
+    <Color x:Key="MD3.Color.SecondaryContainer">#E8DEF8</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SecondaryContainer" Color="{DynamicResource MD3.Color.SecondaryContainer}"/>
+    
+    <!-- OnSecondaryContainer: Цвет контента поверх SecondaryContainer -->
+    <Color x:Key="MD3.Color.OnSecondaryContainer">#1D192B</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnSecondaryContainer" Color="{DynamicResource MD3.Color.OnSecondaryContainer}"/>
+
+    <!-- ============================================== -->
+    <!-- TERTIARY COLORS                                 -->
+    <!-- ============================================== -->
+    
+    <!-- Tertiary: Третичный цвет для контраста и акцентов -->
+    <Color x:Key="MD3.Color.Tertiary">#7D5260</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Tertiary" Color="{DynamicResource MD3.Color.Tertiary}"/>
+    
+    <!-- OnTertiary: Цвет контента поверх Tertiary -->
+    <Color x:Key="MD3.Color.OnTertiary">#FFFFFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnTertiary" Color="{DynamicResource MD3.Color.OnTertiary}"/>
+    
+    <!-- TertiaryContainer: Контейнер с Tertiary акцентом -->
+    <Color x:Key="MD3.Color.TertiaryContainer">#FFD8E4</Color>
+    <SolidColorBrush x:Key="MD3.Brush.TertiaryContainer" Color="{DynamicResource MD3.Color.TertiaryContainer}"/>
+    
+    <!-- OnTertiaryContainer: Цвет контента поверх TertiaryContainer -->
+    <Color x:Key="MD3.Color.OnTertiaryContainer">#31111D</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnTertiaryContainer" Color="{DynamicResource MD3.Color.OnTertiaryContainer}"/>
+
+    <!-- ============================================== -->
+    <!-- ERROR COLORS                                    -->
+    <!-- ============================================== -->
+    
+    <!-- Error: Цвет для ошибок и предупреждений -->
+    <Color x:Key="MD3.Color.Error">#B3261E</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Error" Color="{DynamicResource MD3.Color.Error}"/>
+    
+    <!-- OnError: Цвет контента поверх Error -->
+    <Color x:Key="MD3.Color.OnError">#FFFFFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnError" Color="{DynamicResource MD3.Color.OnError}"/>
+    
+    <!-- ErrorContainer: Контейнер для ошибок -->
+    <Color x:Key="MD3.Color.ErrorContainer">#F9DEDC</Color>
+    <SolidColorBrush x:Key="MD3.Brush.ErrorContainer" Color="{DynamicResource MD3.Color.ErrorContainer}"/>
+    
+    <!-- OnErrorContainer: Цвет контента поверх ErrorContainer -->
+    <Color x:Key="MD3.Color.OnErrorContainer">#410E0B</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnErrorContainer" Color="{DynamicResource MD3.Color.OnErrorContainer}"/>
+
+    <!-- ============================================== -->
+    <!-- SURFACE COLORS                                  -->
+    <!-- ============================================== -->
+    
+    <!-- Surface: Основная поверхность для карточек, диалогов и т.д. -->
+    <Color x:Key="MD3.Color.Surface">#FEF7FF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Surface" Color="{DynamicResource MD3.Color.Surface}"/>
+    
+    <!-- OnSurface: Цвет контента поверх Surface -->
+    <Color x:Key="MD3.Color.OnSurface">#1D1B20</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnSurface" Color="{DynamicResource MD3.Color.OnSurface}"/>
+    
+    <!-- SurfaceVariant: Вариант поверхности для разделения контента -->
+    <Color x:Key="MD3.Color.SurfaceVariant">#E7E0EC</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceVariant" Color="{DynamicResource MD3.Color.SurfaceVariant}"/>
+    
+    <!-- OnSurfaceVariant: Цвет контента поверх SurfaceVariant -->
+    <Color x:Key="MD3.Color.OnSurfaceVariant">#49454F</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnSurfaceVariant" Color="{DynamicResource MD3.Color.OnSurfaceVariant}"/>
+
+    <!-- ============================================== -->
+    <!-- SURFACE CONTAINER COLORS (MD3 Elevation)        -->
+    <!-- ============================================== -->
+    
+    <!-- SurfaceContainerLowest: Самый низкий уровень контейнера -->
+    <Color x:Key="MD3.Color.SurfaceContainerLowest">#FFFFFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceContainerLowest" Color="{DynamicResource MD3.Color.SurfaceContainerLowest}"/>
+    
+    <!-- SurfaceContainerLow: Низкий уровень контейнера -->
+    <Color x:Key="MD3.Color.SurfaceContainerLow">#F7F2FA</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceContainerLow" Color="{DynamicResource MD3.Color.SurfaceContainerLow}"/>
+    
+    <!-- SurfaceContainer: Стандартный уровень контейнера -->
+    <Color x:Key="MD3.Color.SurfaceContainer">#F3EDF7</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceContainer" Color="{DynamicResource MD3.Color.SurfaceContainer}"/>
+    
+    <!-- SurfaceContainerHigh: Высокий уровень контейнера -->
+    <Color x:Key="MD3.Color.SurfaceContainerHigh">#ECE6F0</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceContainerHigh" Color="{DynamicResource MD3.Color.SurfaceContainerHigh}"/>
+    
+    <!-- SurfaceContainerHighest: Самый высокий уровень контейнера -->
+    <Color x:Key="MD3.Color.SurfaceContainerHighest">#E6E0E9</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceContainerHighest" Color="{DynamicResource MD3.Color.SurfaceContainerHighest}"/>
+
+    <!-- ============================================== -->
+    <!-- OUTLINE COLORS                                  -->
+    <!-- ============================================== -->
+    
+    <!-- Outline: Цвет границ и разделителей -->
+    <Color x:Key="MD3.Color.Outline">#79747E</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Outline" Color="{DynamicResource MD3.Color.Outline}"/>
+    
+    <!-- OutlineVariant: Вариант цвета границ (менее контрастный) -->
+    <Color x:Key="MD3.Color.OutlineVariant">#CAC4D0</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OutlineVariant" Color="{DynamicResource MD3.Color.OutlineVariant}"/>
+
+    <!-- ============================================== -->
+    <!-- BACKGROUND COLORS                               -->
+    <!-- ============================================== -->
+    
+    <!-- Background: Фоновый цвет приложения -->
+    <Color x:Key="MD3.Color.Background">#FEF7FF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Background" Color="{DynamicResource MD3.Color.Background}"/>
+    
+    <!-- OnBackground: Цвет контента поверх Background -->
+    <Color x:Key="MD3.Color.OnBackground">#1D1B20</Color>
+    <SolidColorBrush x:Key="MD3.Brush.OnBackground" Color="{DynamicResource MD3.Color.OnBackground}"/>
+
+    <!-- ============================================== -->
+    <!-- INVERSE COLORS                                  -->
+    <!-- ============================================== -->
+    
+    <!-- InverseSurface: Инвертированная поверхность (для snackbar и т.д.) -->
+    <Color x:Key="MD3.Color.InverseSurface">#322F35</Color>
+    <SolidColorBrush x:Key="MD3.Brush.InverseSurface" Color="{DynamicResource MD3.Color.InverseSurface}"/>
+    
+    <!-- InverseOnSurface: Цвет контента поверх InverseSurface -->
+    <Color x:Key="MD3.Color.InverseOnSurface">#F5EFF7</Color>
+    <SolidColorBrush x:Key="MD3.Brush.InverseOnSurface" Color="{DynamicResource MD3.Color.InverseOnSurface}"/>
+    
+    <!-- InversePrimary: Инвертированный Primary цвет -->
+    <Color x:Key="MD3.Color.InversePrimary">#D0BCFF</Color>
+    <SolidColorBrush x:Key="MD3.Brush.InversePrimary" Color="{DynamicResource MD3.Color.InversePrimary}"/>
+
+    <!-- ============================================== -->
+    <!-- UTILITY COLORS                                  -->
+    <!-- ============================================== -->
+    
+    <!-- Scrim: Затемнение для модальных окон -->
+    <Color x:Key="MD3.Color.Scrim">#000000</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Scrim" Color="{DynamicResource MD3.Color.Scrim}"/>
+    
+    <!-- Shadow: Цвет теней -->
+    <Color x:Key="MD3.Color.Shadow">#000000</Color>
+    <SolidColorBrush x:Key="MD3.Brush.Shadow" Color="{DynamicResource MD3.Color.Shadow}"/>
+
+    <!-- ============================================== -->
+    <!-- SURFACE TINT (для elevation overlay)            -->
+    <!-- ============================================== -->
+    
+    <!-- SurfaceTint: Оттенок для создания elevation эффекта -->
+    <Color x:Key="MD3.Color.SurfaceTint">#6750A4</Color>
+    <SolidColorBrush x:Key="MD3.Brush.SurfaceTint" Color="{DynamicResource MD3.Color.SurfaceTint}"/>
+
+</ResourceDictionary>

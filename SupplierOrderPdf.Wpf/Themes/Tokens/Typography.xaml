@@ -1,0 +1,265 @@
+<!-- 
+    Material Design 3 Typography Tokens
+    ====================================
+    Этот файл определяет типографические стили согласно Material Design 3 Type Scale.
+    
+    MD3 Type Scale включает 5 ролей:
+    - Display: Самый крупный текст, для коротких важных сообщений
+    - Headline: Заголовки разделов
+    - Title: Заголовки компонентов (карточки, диалоги)
+    - Body: Основной текст контента
+    - Label: Метки, кнопки, подписи
+    
+    Каждая роль имеет 3 размера: Large, Medium, Small
+    
+    Naming convention: MD3.Typography.{Role}{Size}
+    
+    Шрифт: Roboto (основной MD3 шрифт), Segoe UI (Windows fallback)
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ============================================== -->
+    <!-- FONT FAMILY                                     -->
+    <!-- ============================================== -->
+    
+    <!-- Основной шрифт: Roboto с fallback на Segoe UI для Windows -->
+    <FontFamily x:Key="MD3.FontFamily.Primary">Roboto, Segoe UI, Arial</FontFamily>
+    
+    <!-- Моноширинный шрифт для кода -->
+    <FontFamily x:Key="MD3.FontFamily.Monospace">Consolas, Courier New</FontFamily>
+
+    <!-- ============================================== -->
+    <!-- FONT WEIGHTS                                    -->
+    <!-- ============================================== -->
+    
+    <FontWeight x:Key="MD3.FontWeight.Regular">Normal</FontWeight>
+    <FontWeight x:Key="MD3.FontWeight.Medium">Medium</FontWeight>
+    <FontWeight x:Key="MD3.FontWeight.Bold">Bold</FontWeight>
+
+    <!-- ============================================== -->
+    <!-- DISPLAY STYLES                                  -->
+    <!-- Display используется для коротких важных текстов -->
+    <!-- ============================================== -->
+    
+    <!-- Display Large: 57sp / 64 line height -->
+    <Style x:Key="MD3.Typography.DisplayLarge" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="57"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="64"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Display Medium: 45sp / 52 line height -->
+    <Style x:Key="MD3.Typography.DisplayMedium" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="45"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="52"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Display Small: 36sp / 44 line height -->
+    <Style x:Key="MD3.Typography.DisplaySmall" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="44"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- HEADLINE STYLES                                 -->
+    <!-- Headline используется для заголовков разделов   -->
+    <!-- ============================================== -->
+    
+    <!-- Headline Large: 32sp / 40 line height -->
+    <Style x:Key="MD3.Typography.HeadlineLarge" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="40"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Headline Medium: 28sp / 36 line height -->
+    <Style x:Key="MD3.Typography.HeadlineMedium" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="36"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Headline Small: 24sp / 32 line height -->
+    <Style x:Key="MD3.Typography.HeadlineSmall" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="32"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- TITLE STYLES                                    -->
+    <!-- Title используется для заголовков компонентов   -->
+    <!-- ============================================== -->
+    
+    <!-- Title Large: 22sp / 28 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.TitleLarge" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="28"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Title Medium: 16sp / 24 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.TitleMedium" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="24"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Title Small: 14sp / 20 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.TitleSmall" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- BODY STYLES                                     -->
+    <!-- Body используется для основного текста контента -->
+    <!-- ============================================== -->
+    
+    <!-- Body Large: 16sp / 24 line height -->
+    <Style x:Key="MD3.Typography.BodyLarge" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="24"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Body Medium: 14sp / 20 line height -->
+    <Style x:Key="MD3.Typography.BodyMedium" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Body Small: 12sp / 16 line height -->
+    <Style x:Key="MD3.Typography.BodySmall" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LineHeight" Value="16"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LABEL STYLES                                    -->
+    <!-- Label используется для меток, кнопок, подписей  -->
+    <!-- ============================================== -->
+    
+    <!-- Label Large: 14sp / 20 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.LabelLarge" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Label Medium: 12sp / 16 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.LabelMedium" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="16"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+    
+    <!-- Label Small: 11sp / 16 line height, Medium weight -->
+    <Style x:Key="MD3.Typography.LabelSmall" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="LineHeight" Value="16"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- FONT SIZE RESOURCES                             -->
+    <!-- Для использования в других стилях               -->
+    <!-- ============================================== -->
+    
+    <system:Double x:Key="MD3.FontSize.DisplayLarge">57</system:Double>
+    <system:Double x:Key="MD3.FontSize.DisplayMedium">45</system:Double>
+    <system:Double x:Key="MD3.FontSize.DisplaySmall">36</system:Double>
+    
+    <system:Double x:Key="MD3.FontSize.HeadlineLarge">32</system:Double>
+    <system:Double x:Key="MD3.FontSize.HeadlineMedium">28</system:Double>
+    <system:Double x:Key="MD3.FontSize.HeadlineSmall">24</system:Double>
+    
+    <system:Double x:Key="MD3.FontSize.TitleLarge">22</system:Double>
+    <system:Double x:Key="MD3.FontSize.TitleMedium">16</system:Double>
+    <system:Double x:Key="MD3.FontSize.TitleSmall">14</system:Double>
+    
+    <system:Double x:Key="MD3.FontSize.BodyLarge">16</system:Double>
+    <system:Double x:Key="MD3.FontSize.BodyMedium">14</system:Double>
+    <system:Double x:Key="MD3.FontSize.BodySmall">12</system:Double>
+    
+    <system:Double x:Key="MD3.FontSize.LabelLarge">14</system:Double>
+    <system:Double x:Key="MD3.FontSize.LabelMedium">12</system:Double>
+    <system:Double x:Key="MD3.FontSize.LabelSmall">11</system:Double>
+
+    <!-- ============================================== -->
+    <!-- LINE HEIGHT RESOURCES                           -->
+    <!-- ============================================== -->
+    
+    <system:Double x:Key="MD3.LineHeight.DisplayLarge">64</system:Double>
+    <system:Double x:Key="MD3.LineHeight.DisplayMedium">52</system:Double>
+    <system:Double x:Key="MD3.LineHeight.DisplaySmall">44</system:Double>
+    
+    <system:Double x:Key="MD3.LineHeight.HeadlineLarge">40</system:Double>
+    <system:Double x:Key="MD3.LineHeight.HeadlineMedium">36</system:Double>
+    <system:Double x:Key="MD3.LineHeight.HeadlineSmall">32</system:Double>
+    
+    <system:Double x:Key="MD3.LineHeight.TitleLarge">28</system:Double>
+    <system:Double x:Key="MD3.LineHeight.TitleMedium">24</system:Double>
+    <system:Double x:Key="MD3.LineHeight.TitleSmall">20</system:Double>
+    
+    <system:Double x:Key="MD3.LineHeight.BodyLarge">24</system:Double>
+    <system:Double x:Key="MD3.LineHeight.BodyMedium">20</system:Double>
+    <system:Double x:Key="MD3.LineHeight.BodySmall">16</system:Double>
+    
+    <system:Double x:Key="MD3.LineHeight.LabelLarge">20</system:Double>
+    <system:Double x:Key="MD3.LineHeight.LabelMedium">16</system:Double>
+    <system:Double x:Key="MD3.LineHeight.LabelSmall">16</system:Double>
+
+</ResourceDictionary>

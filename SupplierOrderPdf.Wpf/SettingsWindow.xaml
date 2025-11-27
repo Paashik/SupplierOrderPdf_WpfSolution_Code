@@ -1,0 +1,517 @@
+﻿<Window x:Class="SupplierOrderPdf.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Настройки"
+        Width="800"
+        Height="600"
+        SizeToContent="Manual"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource MD3.Brush.Background}"
+        Foreground="{DynamicResource MD3.Brush.OnBackground}"
+        Closed="SettingsWindow_OnClosed">
+    
+    <Grid Margin="16">
+        <Border Style="{DynamicResource MD3.Card.Elevated}">
+            <DockPanel>
+
+                <!-- Кнопки OK/Отмена -->
+                <StackPanel Orientation="Horizontal"
+                            DockPanel.Dock="Bottom"
+                            HorizontalAlignment="Right"
+                            Margin="0,16,0,0">
+                    <Button x:Name="CancelButton"
+                            Content="Отмена"
+                            Style="{DynamicResource MD3.Button.Text}"
+                            Margin="0,0,8,0"
+                            IsCancel="True"
+                            Click="CancelButton_Click"/>
+                    <Button x:Name="OkButton"
+                            Content="Сохранить"
+                            Style="{DynamicResource MD3.Button.Filled}"
+                            MinWidth="100"
+                            IsDefault="True"
+                            Click="OkButton_Click"/>
+                </StackPanel>
+
+                <TabControl Style="{DynamicResource MD3.TabControl}"
+                            Background="Transparent"
+                            BorderThickness="0">
+                    
+                    <!-- ОБЩИЕ -->
+                    <TabItem Header="Общие">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Margin="0,16,0,0">
+                            <StackPanel>
+
+                                <materialDesign:Card Margin="0,0,0,16"
+                                                     Padding="16">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Папки и файлы"
+                                                   Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                   Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="Выходные файлы (PDF заявок)"
+                                                   Style="{DynamicResource MD3.Typography.LabelMedium}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="1"
+                                                   Margin="0,0,0,8"/>
+                                        <Grid Grid.Row="2"
+                                              Margin="0,0,0,16">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock Text="Папка:"
+                                                       Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,8,0"/>
+                                            <TextBox x:Name="OutputDirTextBox"
+                                                     Grid.Column="1"
+                                                     Style="{DynamicResource MD3.TextField.Outlined}"
+                                                     materialDesign:HintAssist.Hint="Папка для PDF"
+                                                     materialDesign:TextFieldAssist.LeadingIcon="Folder"/>
+                                            <Button x:Name="BrowseOutputButton"
+                                                    Grid.Column="2"
+                                                    Content="Обзор…"
+                                                    Style="{DynamicResource MD3.Button.Tonal}"
+                                                    Margin="8,0,0,0"
+                                                    Click="BrowseOutputButton_Click"/>
+                                        </Grid>
+
+                                        <CheckBox x:Name="OpenPdfAfterExportCheckBox"
+                                                  Grid.Row="3"
+                                                  Content="Открывать PDF после экспорта"
+                                                  Foreground="{DynamicResource MD3.Brush.OnSurface}"/>
+                                    </Grid>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="0,0,0,16"
+                                                     Padding="16">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Уведомления"
+                                                   Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                   Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="E-mail администратора для критических уведомлений:"
+                                                   Style="{DynamicResource MD3.Typography.LabelMedium}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="1"
+                                                   Margin="0,0,0,8"/>
+                                        <TextBox x:Name="AdminNotifyEmailTextBox"
+                                                 Grid.Row="2"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="admin@example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"
+                                                 Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="Уведомлять при создании заявки (копия на адреса):"
+                                                   Style="{DynamicResource MD3.Typography.LabelMedium}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="3"
+                                                   Margin="0,0,0,8"/>
+                                        <TextBox x:Name="NotifyOnCreateToTextBox"
+                                                 Grid.Row="4"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="email1@example.com, email2@example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"
+                                                 Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="Уведомлять при отправке заявки (копия на адреса):"
+                                                   Style="{DynamicResource MD3.Typography.LabelMedium}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="5"
+                                                   Margin="0,0,0,8"/>
+                                        <TextBox x:Name="NotifyOnSendToTextBox"
+                                                 Grid.Row="6"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="email1@example.com, email2@example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"/>
+                                    </Grid>
+                                </materialDesign:Card>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <!-- БАЗА ДАННЫХ -->
+                    <TabItem Header="База данных">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Margin="0,16,0,0">
+                            <StackPanel>
+                                <materialDesign:Card Margin="0,0,0,16"
+                                                     Padding="16">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Подключение к базе данных"
+                                                   Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                   Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="Файл базы данных:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,16,0"/>
+                                        <TextBox x:Name="DbPathTextBox"
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="Путь к файлу БД"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Folder"/>
+                                        <Button x:Name="BrowseDbButton"
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                Content="Обзор…"
+                                                Style="{DynamicResource MD3.Button.Tonal}"
+                                                Margin="8,0,0,0"
+                                                Click="BrowseDbButton_Click"/>
+
+                                        <TextBlock Text="Пароль:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <PasswordBox x:Name="DbPasswordBox"
+                                                     Grid.Row="2"
+                                                     Grid.Column="1"
+                                                     Grid.ColumnSpan="2"
+                                                     Style="{DynamicResource MD3.PasswordField.Outlined}"
+                                                     materialDesign:HintAssist.Hint="Пароль БД"
+                                                     Margin="0,16,0,0"/>
+
+                                        <TextBlock Text="Примечание: изменение пути/пароля требует перезапуска приложения."
+                                                   Style="{DynamicResource MD3.Typography.BodySmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="3"
+                                                   Grid.ColumnSpan="3"
+                                                   Margin="0,16,0,0"
+                                                   TextWrapping="Wrap"/>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <!-- ПОЧТА -->
+                    <TabItem Header="Почта">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      Margin="0,16,0,0">
+                            <StackPanel>
+                                <materialDesign:Card Margin="0,0,0,16"
+                                                     Padding="16">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Отправка писем (SMTP)"
+                                                   Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                   Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="SMTP сервер:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,16,0"/>
+                                        <TextBox x:Name="SmtpHostTextBox"
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="smtp.example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"/>
+                                        <Button x:Name="TestSmtpButton"
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                Content="Проверить SMTP"
+                                                Style="{DynamicResource MD3.Button.Outlined}"
+                                                Margin="8,0,0,0"
+                                                Click="TestSmtpButton_Click"/>
+
+                                        <TextBlock Text="Порт:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <StackPanel Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Grid.ColumnSpan="2"
+                                                    Orientation="Horizontal"
+                                                    Margin="0,16,0,0">
+                                            <TextBox x:Name="SmtpPortTextBox"
+                                                     Style="{DynamicResource MD3.TextField.Outlined}"
+                                                     Width="100"
+                                                     materialDesign:HintAssist.Hint="587"/>
+                                            <CheckBox x:Name="SmtpSslCheckBox"
+                                                      Content="SSL/TLS"
+                                                      Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                      Margin="16,0,0,0"
+                                                      VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Логин:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="3"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox x:Name="SmtpLoginTextBox"
+                                                 Grid.Row="3"
+                                                 Grid.Column="1"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="user@example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"
+                                                 Margin="0,16,0,0"/>
+                                        <Button x:Name="SendTestMailButton"
+                                                Grid.Row="3"
+                                                Grid.Column="2"
+                                                Content="Тестовое письмо"
+                                                Style="{DynamicResource MD3.Button.Outlined}"
+                                                Margin="8,16,0,0"
+                                                Click="SendTestMailButton_Click"/>
+
+                                        <TextBlock Text="Пароль:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="4"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <PasswordBox x:Name="SmtpPasswordBox"
+                                                     Grid.Row="4"
+                                                     Grid.Column="1"
+                                                     Grid.ColumnSpan="2"
+                                                     Style="{DynamicResource MD3.PasswordField.Outlined}"
+                                                     materialDesign:HintAssist.Hint="Пароль SMTP"
+                                                     Margin="0,16,0,0"/>
+
+                                        <TextBlock Text="Отправитель (имя):"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="5"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox x:Name="RequestToNameTextBox"
+                                                 Grid.Row="5"
+                                                 Grid.Column="1"
+                                                 Grid.ColumnSpan="2"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="Имя отправителя"
+                                                 Margin="0,16,0,0"/>
+
+                                        <TextBlock Text="Отправитель (e-mail):"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="6"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox x:Name="RequestToEmailTextBox"
+                                                 Grid.Row="6"
+                                                 Grid.Column="1"
+                                                 Grid.ColumnSpan="2"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="sender@example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"
+                                                 Margin="0,16,0,0"/>
+
+                                        <TextBlock x:Name="FromInfoText"
+                                                   Style="{DynamicResource MD3.Typography.BodySmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                                   Grid.Row="7"
+                                                   Grid.ColumnSpan="3"
+                                                   Margin="0,16,0,0"
+                                                   TextWrapping="Wrap"/>
+                                    </Grid>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="0,0,0,16"
+                                                     Padding="16">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Приём писем / папка отправленных (IMAP)"
+                                                   Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                                   Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                   Margin="0,0,0,16"/>
+
+                                        <TextBlock Text="IMAP сервер:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="1"
+                                                   Grid.Column="0"
+                                                   VerticalAlignment="Center"
+                                                   Margin="0,0,16,0"/>
+                                        <TextBox x:Name="ImapHostTextBox"
+                                                 Grid.Row="1"
+                                                 Grid.Column="1"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="imap.example.com"
+                                                 materialDesign:TextFieldAssist.LeadingIcon="Email"/>
+                                        <Button x:Name="TestImapButton"
+                                                Grid.Row="1"
+                                                Grid.Column="2"
+                                                Content="Проверить IMAP"
+                                                Style="{DynamicResource MD3.Button.Outlined}"
+                                                Margin="8,0,0,0"
+                                                Click="TestImapButton_Click"/>
+
+                                        <TextBlock Text="Порт:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="2"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <StackPanel Grid.Row="2"
+                                                    Grid.Column="1"
+                                                    Grid.ColumnSpan="2"
+                                                    Orientation="Horizontal"
+                                                    Margin="0,16,0,0">
+                                            <TextBox x:Name="ImapPortTextBox"
+                                                     Style="{DynamicResource MD3.TextField.Outlined}"
+                                                     Width="100"
+                                                     materialDesign:HintAssist.Hint="993"/>
+                                            <CheckBox x:Name="ImapSslCheckBox"
+                                                      Content="SSL/TLS"
+                                                      Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                                      Margin="16,0,0,0"
+                                                      VerticalAlignment="Center"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="Папка &quot;Отправленные&quot;:"
+                                                   Style="{DynamicResource MD3.Typography.BodyMedium}"
+                                                   Grid.Row="3"
+                                                   Grid.Column="0"
+                                                   Margin="0,16,16,0"
+                                                   VerticalAlignment="Center"/>
+                                        <TextBox x:Name="ImapSentFolderTextBox"
+                                                 Grid.Row="3"
+                                                 Grid.Column="1"
+                                                 Grid.ColumnSpan="2"
+                                                 Style="{DynamicResource MD3.TextField.Outlined}"
+                                                 materialDesign:HintAssist.Hint="Sent"
+                                                 Margin="0,16,0,0"/>
+
+                                        <CheckBox x:Name="AttachInvoiceDefaultCheckBox"
+                                                  Grid.Row="4"
+                                                  Grid.ColumnSpan="3"
+                                                  Margin="0,16,0,0"
+                                                  Content="По умолчанию прикладывать счёт, если он указан у поставщика"
+                                                  Foreground="{DynamicResource MD3.Brush.OnSurface}"/>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem>
+
+                    <!-- ВИД -->
+                    <TabItem Header="Вид">
+                        <Grid Margin="0,16,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Тема оформления"
+                                       Style="{DynamicResource MD3.Typography.TitleMedium}"
+                                       Grid.Row="0"
+                                       Margin="0,0,0,16"/>
+
+                            <materialDesign:Card Margin="0,0,0,16"
+                                                 Padding="16"
+                                                 Grid.Row="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="Настройки темы"
+                                               Style="{DynamicResource MD3.Typography.TitleSmall}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurface}"
+                                               Margin="0,0,0,16"/>
+                                    <TextBlock Text="Режим:"
+                                               Style="{DynamicResource MD3.Typography.LabelMedium}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                               Grid.Row="1"
+                                               Margin="0,0,0,8"/>
+
+                                    <ComboBox x:Name="ThemeCombo"
+                                              Grid.Row="2"
+                                              Style="{DynamicResource MD3.ComboBox.Outlined}"
+                                              MinWidth="280"
+                                              HorizontalAlignment="Left"
+                                              SelectedIndex="{Binding ThemeModeIndex, Mode=TwoWay}">
+                                        <ComboBoxItem Content="Авто (как в Windows)" Tag="Auto"/>
+                                        <ComboBoxItem Content="Светлая (Material Design 3)" Tag="Light"/>
+                                        <ComboBoxItem Content="Тёмная (Material Design 3)" Tag="Dark"/>
+                                    </ComboBox>
+
+                                    <TextBlock Text="Тема применяется сразу после выбора."
+                                               Style="{DynamicResource MD3.Typography.BodySmall}"
+                                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                                               Grid.Row="3"
+                                               Margin="0,16,0,0"/>
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

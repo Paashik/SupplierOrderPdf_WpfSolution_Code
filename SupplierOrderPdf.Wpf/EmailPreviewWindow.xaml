@@ -1,0 +1,171 @@
+<Window x:Class="SupplierOrderPdf.EmailPreviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Предварительный просмотр письма"
+        Width="760"
+        Height="600"
+        SizeToContent="Manual"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource MD3.Brush.Background}"
+        Foreground="{DynamicResource MD3.Brush.OnBackground}">
+
+    <Grid Margin="16">
+        <Border Style="{DynamicResource MD3.Card.Elevated}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!-- Заголовок -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Блок Кому/Тема -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Тело письма -->
+                    <RowDefinition Height="*"/>
+                    <!-- Вложения -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Подсказка + кнопки -->
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок -->
+                <TextBlock Grid.Row="0"
+                           Text="Предварительный просмотр письма"
+                           Style="{DynamicResource MD3.Typography.TitleLarge}"
+                           Margin="0,0,0,16"/>
+
+                <!-- 1. Верхняя форма: Кому + Тема -->
+                <Grid Grid.Row="1" Margin="0,0,0,16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Кому -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Кому:"
+                               Style="{DynamicResource MD3.Typography.LabelMedium}"
+                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                               VerticalAlignment="Center"
+                               Margin="0,0,16,0"/>
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             x:Name="ToTextBox"
+                             Style="{DynamicResource MD3.TextField.Outlined}"
+                             materialDesign:HintAssist.Hint="recipient@example.com"/>
+
+                    <!-- Тема -->
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Тема:"
+                               Style="{DynamicResource MD3.Typography.LabelMedium}"
+                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                               VerticalAlignment="Center"
+                               Margin="0,16,16,0"/>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             x:Name="SubjectTextBox"
+                             Style="{DynamicResource MD3.TextField.Outlined}"
+                             materialDesign:HintAssist.Hint="Тема письма"
+                             Margin="0,16,0,0"/>
+                </Grid>
+
+                <!-- 2. Тело письма -->
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Текст письма:"
+                               Style="{DynamicResource MD3.Typography.LabelMedium}"
+                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                               Margin="0,0,0,8"/>
+                    <TextBox Grid.Row="1"
+                             x:Name="BodyTextBox"
+                             Style="{DynamicResource MD3.TextField.Outlined.Multiline}"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             TextWrapping="Wrap"
+                             MinHeight="150"/>
+                </Grid>
+
+                <!-- 3. Вложения -->
+                <StackPanel Grid.Row="3"
+                            Margin="0,16,0,0">
+                    <TextBlock Text="Вложения:"
+                               Style="{DynamicResource MD3.Typography.LabelMedium}"
+                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                               Margin="0,0,0,8"/>
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,8">
+                            <Button x:Name="AddAttachmentButton"
+                                    Content="Добавить…"
+                                    Style="{DynamicResource MD3.Button.Tonal}"
+                                    Click="AddAttachmentButton_Click"/>
+                            <Button x:Name="RemoveAttachmentButton"
+                                    Content="Удалить"
+                                    Style="{DynamicResource MD3.Button.Text}"
+                                    Margin="8,0,0,0"
+                                    Click="RemoveAttachmentButton_Click"/>
+                        </StackPanel>
+
+                        <Border DockPanel.Dock="Bottom"
+                                Background="{DynamicResource MD3.Brush.SurfaceContainerLow}"
+                                BorderBrush="{DynamicResource MD3.Brush.OutlineVariant}"
+                                BorderThickness="1"
+                                CornerRadius="{DynamicResource MD3.Shape.Small}"
+                                MinHeight="80">
+                            <ListBox x:Name="AttachmentsListBox"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     AllowDrop="True"
+                                     MouseDoubleClick="AttachmentsListBox_MouseDoubleClick"
+                                     DragOver="AttachmentsListBox_DragOver"
+                                     Drop="AttachmentsListBox_Drop"/>
+                        </Border>
+                    </DockPanel>
+                </StackPanel>
+
+                <!-- 4. Подсказка + кнопки OK/Отмена -->
+                <DockPanel Grid.Row="4"
+                           Margin="0,16,0,0">
+                    <!-- Подсказка слева -->
+                    <TextBlock DockPanel.Dock="Left"
+                               Text="Вы можете отредактировать адресатов, тему и текст письма перед отправкой."
+                               Style="{DynamicResource MD3.Typography.BodySmall}"
+                               Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Center"
+                               MaxWidth="400"
+                               Margin="0,0,16,0"/>
+
+                    <!-- Кнопки справа -->
+                    <StackPanel DockPanel.Dock="Right"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <Button x:Name="CancelButton"
+                                Content="Отмена"
+                                Style="{DynamicResource MD3.Button.Text}"
+                                IsCancel="True"
+                                Margin="0,0,8,0"
+                                Click="CancelButton_Click"/>
+                        <Button x:Name="OkButton"
+                                Content="Отправить"
+                                Style="{DynamicResource MD3.Button.Filled}"
+                                MinWidth="120"
+                                IsDefault="True"
+                                Click="OkButton_Click"/>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,613 @@
+<!-- 
+    Material Design 3 DataGrid Styles
+    ==================================
+    Этот файл содержит стили для DataGrid согласно Material Design 3 guidelines.
+    
+    Особенности MD3 DataGrid:
+    - Header: SurfaceContainerLow, TitleSmall typography
+    - Row: Surface, BodyMedium typography
+    - Alternating row: SurfaceContainerLowest
+    - Selection: SecondaryContainer
+    - Border: OutlineVariant
+    
+    Naming convention: MD3.DataGrid, MD3.DataGridRow, MD3.DataGridCell
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
+    <!-- ============================================== -->
+    <!-- DATAGRID                                       -->
+    <!-- Основной стиль таблицы                         -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGrid" TargetType="DataGrid">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RowHeaderWidth" Value="0"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="AlternationCount" Value="2"/>
+        <Setter Property="RowBackground" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="AlternatingRowBackground" Value="{DynamicResource MD3.Brush.SurfaceContainerLowest}"/>
+        <Setter Property="RowHeight" Value="52"/>
+        <Setter Property="ColumnHeaderHeight" Value="56"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="EnableRowVirtualization" Value="True"/>
+        <Setter Property="EnableColumnVirtualization" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGrid">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{DynamicResource MD3.Shape.Medium}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="DG_ScrollViewer"
+                                      Focusable="False">
+                            <ScrollViewer.Template>
+                                <ControlTemplate TargetType="ScrollViewer">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <!-- Column headers -->
+                                        <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter"
+                                                                        Grid.Column="1"
+                                                                        Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                        
+                                        <!-- Content -->
+                                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                                Grid.Row="1"
+                                                                Grid.ColumnSpan="2"
+                                                                CanContentScroll="{TemplateBinding CanContentScroll}"/>
+                                        
+                                        <!-- Vertical scrollbar -->
+                                        <ScrollBar x:Name="PART_VerticalScrollBar"
+                                                   Grid.Row="1"
+                                                   Grid.Column="2"
+                                                   Orientation="Vertical"
+                                                   Maximum="{TemplateBinding ScrollableHeight}"
+                                                   ViewportSize="{TemplateBinding ViewportHeight}"
+                                                   Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                   Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                        
+                                        <!-- Horizontal scrollbar -->
+                                        <Grid Grid.Row="2"
+                                              Grid.Column="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                                                       Grid.Column="1"
+                                                       Orientation="Horizontal"
+                                                       Maximum="{TemplateBinding ScrollableWidth}"
+                                                       ViewportSize="{TemplateBinding ViewportWidth}"
+                                                       Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                        </Grid>
+                                    </Grid>
+                                </ControlTemplate>
+                            </ScrollViewer.Template>
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID COLUMN HEADER                         -->
+    <!-- Заголовок столбца                              -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGridColumnHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.TitleSmall}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridColumnHeader">
+                    <Grid>
+                        <Border x:Name="BackgroundBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        
+                        <!-- State layer -->
+                        <Border x:Name="StateLayer"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Header content -->
+                            <ContentPresenter Grid.Column="0"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            
+                            <!-- Sort indicator -->
+                            <Path x:Name="SortArrow"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Right"
+                                  VerticalAlignment="Center"
+                                  Width="8"
+                                  Height="6"
+                                  Margin="8,0,0,0"
+                                  Stretch="Fill"
+                                  Opacity="0"
+                                  Fill="{DynamicResource MD3.Brush.OnSurface}"
+                                  RenderTransformOrigin="0.5,0.5"
+                                  Data="M0,0 L1,0 0.5,1 z"/>
+                        </Grid>
+                        
+                        <!-- Column resize gripper -->
+                        <Thumb x:Name="PART_LeftHeaderGripper"
+                               HorizontalAlignment="Left"
+                               Width="8"
+                               Background="Transparent"
+                               Cursor="SizeWE"
+                               Style="{StaticResource {x:Type Thumb}}"/>
+                        <Thumb x:Name="PART_RightHeaderGripper"
+                               HorizontalAlignment="Right"
+                               Width="8"
+                               Background="Transparent"
+                               Cursor="SizeWE"
+                               Style="{StaticResource {x:Type Thumb}}"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Sort ascending -->
+                        <Trigger Property="SortDirection" Value="Ascending">
+                            <Setter TargetName="SortArrow" Property="Opacity" Value="1"/>
+                            <Setter TargetName="SortArrow" Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Sort descending -->
+                        <Trigger Property="SortDirection" Value="Descending">
+                            <Setter TargetName="SortArrow" Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID ROW                                   -->
+    <!-- Строка таблицы                                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGridRow" TargetType="DataGridRow">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridRow">
+                    <Border x:Name="DGR_Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <!-- State layer -->
+                            <Border x:Name="StateLayer"
+                                    Background="Transparent"
+                                    IsHitTestVisible="False"/>
+                            
+                            <SelectiveScrollingGrid>
+                                <SelectiveScrollingGrid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </SelectiveScrollingGrid.ColumnDefinitions>
+                                <SelectiveScrollingGrid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </SelectiveScrollingGrid.RowDefinitions>
+                                
+                                <DataGridCellsPresenter Grid.Column="1"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                
+                                <DataGridDetailsPresenter Grid.Row="1"
+                                                          Grid.Column="1"
+                                                          SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                          Visibility="{TemplateBinding DetailsVisibility}"/>
+                            </SelectiveScrollingGrid>
+                        </Grid>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Alternating row -->
+                        <Trigger Property="AlternationIndex" Value="1">
+                            <Setter TargetName="DGR_Border" Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLowest}"/>
+                        </Trigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Selected state -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="DGR_Border" Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+                        </Trigger>
+                        
+                        <!-- Selected + Hover -->
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <MultiTrigger.Setters>
+                                <Setter TargetName="StateLayer" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource MD3.Color.OnSecondaryContainer}" Opacity="0.08"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </MultiTrigger.Setters>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID CELL                                  -->
+    <!-- Ячейка таблицы                                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGridCell" TargetType="DataGridCell">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="16,0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="DataGridCell">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Selected state -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+                        </Trigger>
+                        
+                        <!-- Focused state (for editing) -->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID CHECKBOX COLUMN                       -->
+    <!-- Стиль для чекбокса в таблице                   -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGrid.CheckBox" TargetType="CheckBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Width" Value="18"/>
+        <Setter Property="Height" Value="18"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid>
+                        <!-- State layer -->
+                        <Border x:Name="StateLayer"
+                                Width="40"
+                                Height="40"
+                                CornerRadius="20"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <!-- Checkbox border -->
+                        <Border x:Name="CheckBorder"
+                                Width="18"
+                                Height="18"
+                                CornerRadius="2"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <!-- Checkmark -->
+                            <Path x:Name="CheckMark"
+                                  Width="12"
+                                  Height="10"
+                                  Stretch="Fill"
+                                  Fill="{DynamicResource MD3.Brush.OnPrimary}"
+                                  Data="M9.55 18 3.85 12.3 5.275 10.875 9.55 15.15 18.725 5.975 20.15 7.4Z"
+                                  Opacity="0"/>
+                        </Border>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Checked state -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckBorder" Property="Background" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="CheckMark" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Indeterminate state -->
+                        <Trigger Property="IsChecked" Value="{x:Null}">
+                            <Setter TargetName="CheckBorder" Property="Background" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+                            <Setter TargetName="CheckMark" Property="Data" Value="M6 13H18V11H6Z"/>
+                            <Setter TargetName="CheckMark" Property="Opacity" Value="1"/>
+                        </Trigger>
+                        
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID COMBOBOX COLUMN                       -->
+    <!-- Стиль для комбобокса в таблице                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGrid.ComboBox" TargetType="ComboBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DATAGRID TEXTBOX COLUMN (Editing)              -->
+    <!-- Стиль для текстового поля при редактировании   -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.DataGrid.TextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource MD3.Brush.Primary}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- LISTVIEW (Alternative to DataGrid)             -->
+    <!-- ListView в стиле MD3                           -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.ListView" TargetType="ListView">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{DynamicResource MD3.Shape.Medium}"
+                            SnapsToDevicePixels="True">
+                        <ScrollViewer Padding="{TemplateBinding Padding}">
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MD3.ListViewItem" TargetType="ListViewItem">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border x:Name="RootBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{DynamicResource MD3.Brush.OutlineVariant}"
+                            BorderThickness="0,0,0,1"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <!-- State layer -->
+                            <Border x:Name="StateLayer"
+                                    Background="Transparent"
+                                    Margin="-16,-12"
+                                    IsHitTestVisible="False"/>
+                            
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- Hover state -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
+                        <!-- Selected state -->
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="RootBorder" Property="Background" Value="{DynamicResource MD3.Brush.SecondaryContainer}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSecondaryContainer}"/>
+                        </Trigger>
+                        
+                        <!-- Disabled state -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.38"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- GRIDVIEW COLUMN HEADER                         -->
+    <!-- Заголовок столбца для GridView                 -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.GridViewColumnHeader" TargetType="GridViewColumnHeader">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.TitleSmall}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Padding" Value="16,12"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewColumnHeader">
+                    <Grid>
+                        <Border x:Name="BackgroundBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        
+                        <!-- State layer -->
+                        <Border x:Name="StateLayer"
+                                Background="Transparent"
+                                IsHitTestVisible="False"/>
+                        
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        
+                        <!-- Resize gripper -->
+                        <Thumb x:Name="PART_HeaderGripper"
+                               HorizontalAlignment="Right"
+                               Width="8"
+                               Background="Transparent"
+                               Cursor="SizeWE"
+                               Margin="0,0,-4,0"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="StateLayer" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource MD3.Color.OnSurface}" Opacity="0.08"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

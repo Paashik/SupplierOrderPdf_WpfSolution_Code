@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupplierOrderPdf.Core", "SupplierOrderPdf.Core\SupplierOrderPdf.Core.csproj", "{A1C0B9D9-6B91-4F5E-9E64-845FB04F8B60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupplierOrderPdf.Wpf", "SupplierOrderPdf.Wpf\SupplierOrderPdf.Wpf.csproj", "{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1C0B9D9-6B91-4F5E-9E64-845FB04F8B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C0B9D9-6B91-4F5E-9E64-845FB04F8B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C0B9D9-6B91-4F5E-9E64-845FB04F8B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C0B9D9-6B91-4F5E-9E64-845FB04F8B60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

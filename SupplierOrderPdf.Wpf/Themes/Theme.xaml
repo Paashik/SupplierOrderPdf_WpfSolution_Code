@@ -1,0 +1,155 @@
+<!-- 
+    Material Design 3 Theme - Main Entry Point
+    ===========================================
+    Этот файл является главной точкой входа для MD3 темы.
+    Он объединяет все токены (цвета, типографику, формы) и палитру.
+    
+    Использование:
+    В App.xaml добавьте:
+    <ResourceDictionary Source="Themes/Theme.xaml"/>
+    
+    Для переключения темы в runtime:
+    1. Удалите текущую палитру из MergedDictionaries
+    2. Добавьте новую палитру (Palette.Light.xaml или Palette.Dark.xaml)
+    
+    Структура:
+    ├── Tokens/Colors.xaml      - Определения цветовых токенов и кистей
+    ├── Tokens/Typography.xaml  - Стили текста MD3
+    ├── Tokens/Shapes.xaml      - Corner radius и spacing
+    ├── Palettes/Palette.Light.xaml - Значения цветов для светлой темы
+    └── Palettes/Palette.Dark.xaml  - Значения цветов для тёмной темы
+    
+    Порядок загрузки важен:
+    1. Сначала загружается палитра (определяет значения Color)
+    2. Затем Colors.xaml (определяет Brush, ссылающиеся на Color)
+    3. Затем Typography и Shapes (могут ссылаться на Brush)
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        
+        <!-- ============================================== -->
+        <!-- PALETTE - Значения цветов для текущей темы      -->
+        <!-- По умолчанию загружается светлая тема           -->
+        <!-- Для тёмной темы замените на Palette.Dark.xaml   -->
+        <!-- ============================================== -->
+        <ResourceDictionary Source="Palettes/Palette.Light.xaml"/>
+        
+        <!-- ============================================== -->
+        <!-- TOKENS - Определения токенов дизайн-системы     -->
+        <!-- ============================================== -->
+        
+        <!-- Color Tokens: Определения кистей (Brush) -->
+        <!-- Кисти ссылаются на Color из палитры через DynamicResource -->
+        <ResourceDictionary Source="Tokens/Colors.xaml"/>
+        
+        <!-- Typography Tokens: Стили текста MD3 -->
+        <!-- Display, Headline, Title, Body, Label -->
+        <ResourceDictionary Source="Tokens/Typography.xaml"/>
+        
+        <!-- Shape Tokens: Corner radius, spacing, sizes -->
+        <!-- ExtraSmall, Small, Medium, Large, ExtraLarge, Full -->
+        <ResourceDictionary Source="Tokens/Shapes.xaml"/>
+        
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- ============================================== -->
+    <!-- THEME METADATA                                  -->
+    <!-- Метаданные для идентификации текущей темы       -->
+    <!-- ============================================== -->
+    
+    <!-- Идентификатор текущей темы (Light/Dark) -->
+    <!-- Используется ThemeManager для определения активной темы -->
+    <system:String x:Key="MD3.Theme.Current" 
+                   xmlns:system="clr-namespace:System;assembly=mscorlib">Light</system:String>
+    
+    <!-- Версия дизайн-системы -->
+    <system:String x:Key="MD3.Theme.Version" 
+                   xmlns:system="clr-namespace:System;assembly=mscorlib">3.0</system:String>
+
+    <!-- ============================================== -->
+    <!-- COMMON STYLES                                   -->
+    <!-- Базовые стили для часто используемых элементов  -->
+    <!-- ============================================== -->
+    
+    <!-- Базовый стиль для Window с MD3 фоном -->
+    <Style x:Key="MD3.Window.Base" TargetType="Window">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Background}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnBackground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+    </Style>
+    
+    <!-- Базовый стиль для UserControl с MD3 фоном -->
+    <Style x:Key="MD3.UserControl.Base" TargetType="UserControl">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MD3.FontFamily.Primary}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MD3.FontSize.BodyMedium}"/>
+    </Style>
+    
+    <!-- Базовый стиль для Border как Card -->
+    <Style x:Key="MD3.Card" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource MD3.Shape.Medium}"/>
+        <Setter Property="Padding" Value="{DynamicResource MD3.Padding.Card}"/>
+    </Style>
+    
+    <!-- Elevated Card (с тенью) -->
+    <Style x:Key="MD3.Card.Elevated" TargetType="Border" BasedOn="{StaticResource MD3.Card}">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="8" 
+                                  ShadowDepth="2" 
+                                  Direction="270" 
+                                  Color="{DynamicResource MD3.Color.Shadow}" 
+                                  Opacity="0.15"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Filled Card -->
+    <Style x:Key="MD3.Card.Filled" TargetType="Border" BasedOn="{StaticResource MD3.Card}">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerHighest}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    
+    <!-- Outlined Card -->
+    <Style x:Key="MD3.Card.Outlined" TargetType="Border" BasedOn="{StaticResource MD3.Card}">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Surface}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.Outline}"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- DIVIDER STYLES                                  -->
+    <!-- ============================================== -->
+    
+    <!-- Горизонтальный разделитель -->
+    <Style x:Key="MD3.Divider.Horizontal" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <!-- Вертикальный разделитель -->
+    <Style x:Key="MD3.Divider.Vertical" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>
+        <Setter Property="Width" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <!-- ============================================== -->
+    <!-- SCRIM OVERLAY                                   -->
+    <!-- Затемнение для модальных окон                   -->
+    <!-- ============================================== -->
+    
+    <Style x:Key="MD3.Scrim" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource MD3.Brush.Scrim}"/>
+        <Setter Property="Opacity" Value="0.32"/>
+    </Style>
+
+</ResourceDictionary>
