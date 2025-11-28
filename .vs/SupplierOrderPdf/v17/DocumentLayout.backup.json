@@ -1,15 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\SupplierOrderPdf_WpfSolution_Code_github\\SupplierOrderPdf_WpfSolution_Code\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}|SupplierOrderPdf.Wpf\\SupplierOrderPdf.Wpf.csproj|d:\\supplierorderpdf_wpfsolution_code_github\\supplierorderpdf_wpfsolution_code\\supplierorderpdf.wpf\\themes\\controls\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{C2A6D4AF-6223-4D34-8CD0-7595C1F63075}|SupplierOrderPdf.Wpf\\SupplierOrderPdf.Wpf.csproj|solutionrelative:supplierorderpdf.wpf\\themes\\controls\\datagrid.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
-      "Orientation": 0,
+      "Orientation": 1,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "DockedHeight": 200,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,6 +47,22 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DataGrid.xaml",
+              "DocumentMoniker": "D:\\SupplierOrderPdf_WpfSolution_Code_github\\SupplierOrderPdf_WpfSolution_Code\\SupplierOrderPdf.Wpf\\Themes\\Controls\\DataGrid.xaml",
+              "RelativeDocumentMoniker": "SupplierOrderPdf.Wpf\\Themes\\Controls\\DataGrid.xaml",
+              "ToolTip": "D:\\SupplierOrderPdf_WpfSolution_Code_github\\SupplierOrderPdf_WpfSolution_Code\\SupplierOrderPdf.Wpf\\Themes\\Controls\\DataGrid.xaml",
+              "RelativeToolTip": "SupplierOrderPdf.Wpf\\Themes\\Controls\\DataGrid.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-11-27T15:01:32.228Z",
+              "EditorCaption": ""
             }
           ]
         }

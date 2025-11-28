@@ -324,7 +324,7 @@
         <!-- Фиксированная высота как у других полей -->
         <Setter Property="Height" Value="{DynamicResource MD3.Size.TextField.Height}"/>
         <Setter Property="MinWidth" Value="210"/>
-        <Setter Property="Padding" Value="16,0,16,0"/>
+        <Setter Property="Padding" Value="8,0,16,0"/>
         <Setter Property="Background" Value="{DynamicResource MD3.Brush.SurfaceContainerLow}"/>
         <Setter Property="Foreground" Value="{DynamicResource MD3.Brush.OnSurface}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource MD3.Brush.OutlineVariant}"/>

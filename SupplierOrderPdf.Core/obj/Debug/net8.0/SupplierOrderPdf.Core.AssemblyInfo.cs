@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SupplierOrderPdf.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37b2b7f9708e407e9f762f583bccb49a3630d51a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+709493bb2e69a55514d6ef17f30189105878d0f2")]
 [assembly: System.Reflection.AssemblyProductAttribute("SupplierOrderPdf.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SupplierOrderPdf.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

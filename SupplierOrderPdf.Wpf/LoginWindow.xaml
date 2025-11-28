@@ -103,7 +103,7 @@
                                   Style="{DynamicResource MD3.ComboBox.Outlined}"
                                   HorizontalAlignment="Stretch"
                                   DisplayMemberPath="LoginWithShortName"
-                                  SelectionChanged="UserCombo_SelectionChanged" />
+                                  SelectionChanged="UserCombo_SelectionChanged" Width="296"/>
                     </StackPanel>
 
                     <!-- ===== Пароль ===== -->
@@ -116,7 +116,7 @@
 
                         <PasswordBox x:Name="PasswordBox"
                                      Style="{DynamicResource MD3.PasswordField.Outlined}"
-                                     HorizontalAlignment="Stretch" />
+                                     HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
                     </StackPanel>
 
                     <!-- ===== Роль (только для отображения) ===== -->
