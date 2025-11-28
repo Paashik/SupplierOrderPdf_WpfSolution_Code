@@ -1,0 +1,5 @@
+2025-11-28 19:20:38 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 19:20:42 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 19:20:50 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-28 19:20:50 [INFO] Creating MainWindow...
+2025-11-28 19:20:50 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
