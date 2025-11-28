@@ -1,0 +1,65 @@
+2025-11-27 15:35:03 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 15:35:07 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 15:35:10 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 15:35:10 [INFO] Creating MainWindow...
+2025-11-27 15:35:11 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 15:36:43 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 15:36:44 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 15:36:47 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 15:36:47 [INFO] Creating MainWindow...
+2025-11-27 15:36:48 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 16:20:01 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:20:04 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 16:20:08 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:20:08 [INFO] Creating MainWindow...
+2025-11-27 16:20:09 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 16:43:16 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:43:18 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 16:43:20 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:43:20 [INFO] Creating MainWindow...
+2025-11-27 16:43:21 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 16:44:35 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:44:37 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 16:44:39 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 16:44:39 [INFO] Creating MainWindow...
+2025-11-27 16:44:40 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 17:08:55 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:08:56 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 17:08:59 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:08:59 [INFO] Creating MainWindow...
+2025-11-27 17:09:00 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 17:13:36 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:13:37 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 17:13:40 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:13:40 [INFO] Creating MainWindow...
+2025-11-27 17:13:41 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-27 17:56:36 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:56:37 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-27 17:56:40 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-27 17:56:40 [INFO] Creating MainWindow...
+2025-11-27 17:56:41 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.
+2025-11-28 16:43:37 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:43:40 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 16:43:59 [INFO] LoginWindow closed. Result: False. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:43:59 [INFO] User cancelled login. Shutting down.
+2025-11-28 16:47:02 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:47:03 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 16:47:05 [INFO] LoginWindow closed. Result: False. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:47:05 [INFO] User cancelled login. Shutting down.
+2025-11-28 16:53:31 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:53:32 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 16:53:39 [INFO] LoginWindow closed. Result: False. ShutdownMode: OnExplicitShutdown
+2025-11-28 16:53:39 [INFO] User cancelled login. Shutting down.
+2025-11-28 17:10:00 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:10:01 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 17:10:12 [INFO] LoginWindow closed. Result: False. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:10:12 [INFO] User cancelled login. Shutting down.
+2025-11-28 17:13:10 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:13:11 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 17:19:41 [INFO] LoginWindow closed. Result: False. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:19:41 [INFO] User cancelled login. Shutting down.
+2025-11-28 17:19:45 [INFO] OnStartup. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:19:47 [INFO] LoginWindow created. MainWindow is: SupplierOrderPdf.Wpf.LoginWindow
+2025-11-28 17:20:08 [INFO] LoginWindow closed. Result: True. ShutdownMode: OnExplicitShutdown
+2025-11-28 17:20:08 [INFO] Creating MainWindow...
+2025-11-28 17:20:09 [INFO] MainWindow shown. ShutdownMode set to OnMainWindowClose.

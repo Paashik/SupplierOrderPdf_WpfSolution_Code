@@ -7,7 +7,7 @@
         MinWidth="1100"
         MinHeight="760"
         SizeToContent="WidthAndHeight"
-        Background="{DynamicResource MD3.Brush.Background}">
+        Background="{DynamicResource MD3.Brush.Background}" Width="1731">
 
     <Grid Margin="16">
         <Grid.RowDefinitions>
@@ -17,11 +17,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <!-- Левая колонка с таблицей заказов -->
-            <ColumnDefinition Width="520" MinWidth="480"/>
+            <ColumnDefinition Width="1091" MinWidth="480"/>
             <!-- Вертикальный разделитель между таблицей и предпросмотром -->
-            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="5"/>
             <!-- Правая колонка с областью предпросмотра и панелью заказчика/поставщика -->
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- Заголовок заявки -->
@@ -33,59 +33,56 @@
         </DockPanel>
 
         <!-- ЛЕВАЯ ЧАСТЬ: фильтры + грид заказов -->
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Column="0" Margin="0,49,0,0" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- Фильтры -->
-            <Border Grid.Row="0"
+            <Border
                     Background="{DynamicResource MD3.Brush.SurfaceContainerLow}"
                     BorderBrush="{DynamicResource MD3.Brush.OutlineVariant}"
                     BorderThickness="1"
-                    CornerRadius="{DynamicResource MD3.Shape.Medium}"
-                    Padding="12"
-                    Margin="0,0,0,16">
+                    CornerRadius="{DynamicResource MD3.Shape.Medium}">
                 <WrapPanel ItemWidth="250"
                            ItemHeight="72"
                            MinHeight="72"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Center"
                            UseLayoutRounding="True">
-                    <StackPanel Width="250">
+                    <StackPanel>
                         <TextBlock Text="Поиск"
                                    Style="{DynamicResource MD3.Typography.LabelMedium}"
                                    Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
                         <TextBox x:Name="FilterBox"
-                                 Height="44"
-                                 Padding="12,0,12,0"
                                  Style="{DynamicResource MD3.TextField.Outlined}"
-                                 materialDesign:HintAssist.Hint="Поиск..."
-                                 TextChanged="FilterBox_OnTextChanged"/>
+                                 TextChanged="FilterBox_OnTextChanged"
+                                 Margin="0,0,8,0"/>
+                        
                     </StackPanel>
 
-                    <StackPanel Width="120">
+                    <StackPanel>
                         <TextBlock Text="Год"
                                    Style="{DynamicResource MD3.Typography.LabelMedium}"
                                    Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
                         <ComboBox x:Name="YearCombo"
                                   Style="{DynamicResource MD3.ComboBox.Outlined}"
-                                  Height="44"
-                                  SelectionChanged="YearCombo_OnSelectionChanged"/>
+                                  SelectionChanged="YearCombo_OnSelectionChanged"
+                                  Margin="0,0,8,0"/>
                     </StackPanel>
 
-                    <StackPanel Width="180">
+                    <StackPanel>
                         <TextBlock Text="Статус"
                                    Style="{DynamicResource MD3.Typography.LabelMedium}"
                                    Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
                         <ComboBox x:Name="StatusCombo"
                                   Style="{DynamicResource MD3.ComboBox.Outlined}"
-                                  Height="44"
-                                  SelectionChanged="StatusCombo_OnSelectionChanged"/>
+                                  SelectionChanged="StatusCombo_OnSelectionChanged"
+                                  Margin="0,0,8,0"/>
                     </StackPanel>
 
-                    <StackPanel Width="180">
+                    <StackPanel>
                         <TextBlock Text="Действия"
                                    Style="{DynamicResource MD3.Typography.LabelMedium}"
                                    Foreground="{DynamicResource MD3.Brush.OnSurfaceVariant}"/>
@@ -93,13 +90,11 @@
                             <Button x:Name="ReloadButton"
                                     Content="Обновить"
                                     Style="{DynamicResource MD3.Button.Tonal}"
-                                    MinWidth="96"
-                                    Margin="0,0,8,0"
-                                    Click="ReloadButton_OnClick"/>
+                                    Click="ReloadButton_OnClick"
+                                     Margin="0,0,8,0"/>
                             <Button x:Name="SettingsButton"
-                                    Content="Настройки…"
+                                    Content="Настройки"
                                     Style="{DynamicResource MD3.Button.Outlined}"
-                                    MinWidth="96"
                                     Click="SettingsButton_OnClick"/>
                         </StackPanel>
                     </StackPanel>
@@ -164,16 +159,15 @@
         </Grid>
 
         <!-- ВЕРТИКАЛЬНЫЙ СПЛИТТЕР -->
-        <GridSplitter Grid.Row="1" Grid.Column="1"
+        <GridSplitter Grid.Column="1"
                       HorizontalAlignment="Center"
-                      VerticalAlignment="Stretch"
                       Width="8"
                       Background="Transparent"
                       ShowsPreview="False"
-                      ResizeBehavior="PreviousAndNext"/>
+                      ResizeBehavior="PreviousAndNext" Margin="0,49,0,0" Grid.RowSpan="3"/>
 
         <!-- ПРАВАЯ ЧАСТЬ: заказчик, поставщик, предпросмотр -->
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Column="2" Margin="0,49,0,0" Grid.RowSpan="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -271,16 +265,16 @@
 
                         <StackPanel Orientation="Horizontal"
                                      Margin="0,4,0,0">
-                             <CheckBox x:Name="AttachInvoiceCheckBox"
+                            <CheckBox x:Name="AttachInvoiceCheckBox"
                                        Content="Прикрепить счёт (если указан)"
                                        ToolTip="Текущее значение по умолчанию: Да"
                                        Foreground="{DynamicResource MD3.Brush.OnSurface}"
                                        Margin="0,0,16,0"/>
-                             <Button x:Name="OpenInvoiceButton"
+                            <Button x:Name="OpenInvoiceButton"
                                      Content="Просмотреть счёт"
                                      Style="{DynamicResource MD3.Button.Text}"
                                      Click="OpenInvoiceButton_OnClick"/>
-                         </StackPanel>
+                        </StackPanel>
 
                         <CheckBox x:Name="OpenAfterExportCheckBox"
                                   Content="Просматривать заявку после экспорта"

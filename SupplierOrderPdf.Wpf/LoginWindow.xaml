@@ -102,6 +102,7 @@
                         <ComboBox x:Name="UserCombo"
                                   Style="{DynamicResource MD3.ComboBox.Outlined}"
                                   HorizontalAlignment="Stretch"
+                                  DisplayMemberPath="LoginWithShortName"
                                   SelectionChanged="UserCombo_SelectionChanged" />
                     </StackPanel>
 

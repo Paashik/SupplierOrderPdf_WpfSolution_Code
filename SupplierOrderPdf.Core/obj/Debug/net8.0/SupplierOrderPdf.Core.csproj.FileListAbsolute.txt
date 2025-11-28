@@ -1,0 +1,13 @@
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\bin\Debug\net8.0\SupplierOrderPdf.Core.deps.json
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\bin\Debug\net8.0\SupplierOrderPdf.Core.dll
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\bin\Debug\net8.0\SupplierOrderPdf.Core.pdb
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.csproj.AssemblyReference.cache
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.AssemblyInfoInputs.cache
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.AssemblyInfo.cs
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.csproj.CoreCompileInputs.cache
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.sourcelink.json
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.dll
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\refint\SupplierOrderPdf.Core.dll
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\SupplierOrderPdf.Core.pdb
+D:\SupplierOrderPdf_WpfSolution_Code_github\SupplierOrderPdf_WpfSolution_Code\SupplierOrderPdf.Core\obj\Debug\net8.0\ref\SupplierOrderPdf.Core.dll

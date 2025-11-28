@@ -105,7 +105,10 @@ public class AccessUser
     /// <summary>
     /// Формат "Логин (Фамилия И.О.)" для использования в LoginWindow.
     /// </summary>
-    public string LoginWithShortName => $"{Login} ({ShortPersonName})";
+    public string LoginWithShortName
+    {
+        get { return $"{Login} ({ShortPersonName})"; }
+    }
 
     /// <summary>
     /// Имя персоны, связанной с пользователем.
@@ -142,25 +145,7 @@ public class AccessUser
     /// </summary>
     public string Password { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Возвращает строковое представление пользователя для отображения в UI.
-    /// Формат: "Фамилия Имя Отчество (тип)" или только "Фамилия Имя Отчество" если нет типа.
-    /// Тип пользователя определяется на основе роли или типа пользователя.
-    /// Используется в выпадающих списках и элементах выбора пользователя.
-    /// </summary>
-    /// <returns>Строка для отображения пользователя с типом в скобках</returns>
-    public override string ToString()
-    {
-        // Определяем тип пользователя на основе роли
-        string userType = GetUserTypeDisplayName();
-        
-        // PersonName содержит полные имена, добавляем тип если есть
-        if (!string.IsNullOrWhiteSpace(userType))
-            return $"{PersonName} ({userType})";
-            
-        return PersonName;
-    }
-
+    
     /// <summary>
     /// Определяет отображаемое имя типа пользователя на основе роли.
     /// </summary>
@@ -210,16 +195,6 @@ public class AccessUser
         return contactInfo;
     }
 
-    /// <summary>
-    /// Возвращает отформатированную строку пользователя для отображения.
-    /// Формат: "Фамилия Имя Отчество (person)" (без префикса "Пользователь").
-    /// Альтернативный метод для ToString() с более явным названием.
-    /// </summary>
-    /// <returns>Строка для отображения пользователя с типом</returns>
-    public string ToDisplayString()
-    {
-        return ToString();
-    }
 }
 
 /// <summary>
